@@ -1,0 +1,6 @@
+[26-May-2020 03:28:50 UTC] PHP Warning:  require(/home/usahaana/public_html/public/../vendor/autoload.php): failed to open stream: No such file or directory in /home/usahaana/public_html/public/index.php on line 24
+[26-May-2020 03:28:50 UTC] PHP Warning:  require(/home/usahaana/public_html/public/../vendor/autoload.php): failed to open stream: No such file or directory in /home/usahaana/public_html/public/index.php on line 24
+[26-May-2020 03:28:50 UTC] PHP Fatal error:  require(): Failed opening required '/home/usahaana/public_html/public/../vendor/autoload.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/usahaana/public_html/public/index.php on line 24
+[26-May-2020 03:28:52 UTC] PHP Warning:  require(/home/usahaana/public_html/public/../vendor/autoload.php): failed to open stream: No such file or directory in /home/usahaana/public_html/public/index.php on line 24
+[26-May-2020 03:28:52 UTC] PHP Warning:  require(/home/usahaana/public_html/public/../vendor/autoload.php): failed to open stream: No such file or directory in /home/usahaana/public_html/public/index.php on line 24
+[26-May-2020 03:28:52 UTC] PHP Fatal error:  require(): Failed opening required '/home/usahaana/public_html/public/../vendor/autoload.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/usahaana/public_html/public/index.php on line 24
