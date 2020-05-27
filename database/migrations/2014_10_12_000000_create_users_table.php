@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->date('tanggal_lahir')->nullable();
             $table->string('hp')->nullable();
             $table->string('email',129)->unique();
-            $table->username('username');
+            $table->string('username');
             $table->string('password');
             $table->text('alamat')->nullable();
             $table->integer('status')->default(1);
