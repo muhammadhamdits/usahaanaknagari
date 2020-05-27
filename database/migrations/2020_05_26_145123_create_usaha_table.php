@@ -17,16 +17,17 @@ class CreateUsahaTable extends Migration
             $table->unsignedBigInteger('id');
             $table->unsignedBigInteger('jenis_usaha_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('nama');
+            $table->string('nama')->nullable();
             $table->time('jam_buka')->nullable();
             $table->time('jam_tutup')->nullable();
             $table->text('alamat');
             $table->string('foto')->nullable();
             $table->geometry('geom');
             $table->text('barang_jasa');
-            $table->text('ket');
+            $table->text('ket')->nullable();
             $table->integer('status')->default(1);
-            $table->string('pengusul');
+            $table->string('pengusul')->nullable();
+            $table->string('pemilik')->nullable();
             $table->timestamps();
 
             $table->primary('id');

@@ -16,14 +16,14 @@ class CreateUsulanUpdateTable extends Migration
         Schema::create('usulan_update', function (Blueprint $table) {
             $table->UnsignedBigInteger('id');
             $table->UnsignedBigInteger('usaha_id');
-            $table->string('nama');
+            $table->string('nama')->nullable();
             $table->time('jam_buka')->nullable();
             $table->time('jam_tutup')->nullable();
             $table->text('alamat');
             $table->string('foto')->nullable();
             $table->geometry('geom');
             $table->text('barang_jasa');
-            $table->text('ket');
+            $table->text('ket')->nullable();
             $table->integer('status')->default(1);
             $table->string('pengusul');
             $table->timestamps();
