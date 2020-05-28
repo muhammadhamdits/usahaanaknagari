@@ -49,55 +49,23 @@
                         Alexander Pierce
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item">
+                        <a href="#" class="dropdown-item mb-3">
                             <!-- Message Start -->
-                            <div class="media">
-                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Brad Diesel
-                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">Call me whenever you can...</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
+                            <div class="text-center">
+                                <img src="{{ url('img/avatar04.png') }}" alt="User Avatar" class="img-size-50 mx-auto d-block img-circle">
+                            </div>
+                            <div class="text-center">
+                                <h3 class="dropdown-item-title">
+                                    Alexander Pierce
+                                </h3>
                             </div>
                             <!-- Message End -->
                         </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        John Pierce
-                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">I got your message bro</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
+                        <a href="#" class="text-dark">
+                            <p class="text-sm text-center">Ubah Password?</p>
                         </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Nora Silvester
-                                        <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">The subject goes here</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                        <div class="dropdown-divider mt-2"></div>
+                        <a href="#" class="dropdown-item dropdown-footer"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </li>
             </ul>
@@ -108,8 +76,8 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <img src="{{ url('img/uan.png') }}" alt="Usaha Anak Nagari" class="rounded mx-auto d-block" style="filter: brightness(0) invert(1); margin-top:-11%; margin-bottom:-10%"  height="80">
+                <span class="brand-text font-weight-light"></span>
             </a>
             <!-- ./brand-logo -->
 
@@ -118,7 +86,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ url('img/avatar04.png') }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">Alexander Pierce</a>
@@ -154,7 +122,7 @@
                         <!-- Pemilik -->
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-copy"></i>
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Pemilik
                                     <span class="badge badge-info right">15</span>
