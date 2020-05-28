@@ -12,5 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('layout.app');
-});
+    return view('dashboard');
+})->name('home');
+
+Auth::routes();
+
+Route::get('/logout', function(){
+    Auth::guard('web')->logout();
+    Auth::guard('admin')->logout();
+    return redirect(route('home'));
+})->name('logOut');
+
+// Route::get('/home', 'HomeController@index')->name('home');

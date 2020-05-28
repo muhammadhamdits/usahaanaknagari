@@ -27,6 +27,14 @@
     <link rel="stylesheet" href="{{ url('css/summernote-bs4.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    @if(!Auth::guard('admin')->check() && !Auth::guard('web')->check())
+    <style>
+        a.text-primary:hover{
+            color: white !important;
+        }
+    </style>
+    @endif
+    @yield('script')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -43,6 +51,7 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Messages Dropdown Menu -->
+                @if(Auth::guard('admin')->check() || Auth::guard('web')->check())
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-user"></i>
@@ -65,9 +74,21 @@
                             <p class="text-sm text-center">Ubah Password?</p>
                         </a>
                         <div class="dropdown-divider mt-2"></div>
-                        <a href="#" class="dropdown-item dropdown-footer"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        @if(Auth::guard('admin')->check())
+                        <a href="{{ route('logOut') }}" class="dropdown-item dropdown-footer"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        @else
+                        <a href="{{ route('logOut') }}" class="dropdown-item dropdown-footer"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        @endif
                     </div>
                 </li>
+                @else
+                <li class="nav-item mr-3">
+                    <a href="{{ route('login') }}" class="nav-link btn btn-primary text-white">Login</a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a href="{{ route('register') }}" class="nav-link btn btn-outline-primary text-primary">Daftar</a>
+                </li>
+                @endif
             </ul>
         </nav>
         <!-- /.navbar -->
