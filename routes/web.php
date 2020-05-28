@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layout.app');
-});
+// Route::get('/', function () {
+//     return view('layout.app');
+// });
+
+Route::get('/', 'DashboardController@map')->name('index');
