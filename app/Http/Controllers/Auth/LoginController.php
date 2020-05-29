@@ -45,10 +45,11 @@ class LoginController extends Controller
     }
     protected function attemptLogin(Request $request)
     {
-        $customerAttempt = Auth::guard('web')->attempt(
+        // dd(Auth::guard('admin')->user());
+        $pemilikAttempt = Auth::guard('web')->attempt(
             $this->credentials($request)
         );
-        if(!$customerAttempt){
+        if(!$pemilikAttempt){
             // dd(Auth::guard('admin')->attempt(
             //     $this->credentials($request), $request->has('remember')
             // ));
@@ -56,6 +57,6 @@ class LoginController extends Controller
                 $this->credentials($request)
             );
         }
-        return $customerAttempt;
+        return $pemilikAttempt;
     }
 }
