@@ -25,6 +25,10 @@
     <link rel="stylesheet" href="{{ url('css/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ url('css/summernote-bs4.css') }}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ url('css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ url('css/select2-bootstrap4.min') }}">
+
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     @if(!Auth::guard('admin')->check() && !Auth::guard('web')->check())
@@ -135,7 +139,7 @@
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Usaha
-                                    <span class="right badge badge-danger">78</span>
+                                    <span class="right badge badge-info">78</span>
                                 </p>
                             </a>
                         </li>
@@ -163,29 +167,53 @@
                         </li>
 
                         <!-- Search by Name -->
-                        <li class="nav-header">Search by Name</li>
-                        <li class="nav-item">
-                
+                        <li class="nav-header" style="margin-bottom: -20px">
+                            <div class="form-group">
+                                <label for="usaha">Search by Name</label><br>
+                                <input type="text" class="form-control-sm" style="width: 100%; height: 35px; border-radius:5px;" placeholder="Masukkan Nama Usaha ..." id="usaha">
+                            </div>
                         </li>
 
+
                         <!-- Search by Radius -->
-                        <li class="nav-header">Search by Radius</li>
-                        <li class="nav-item">
-                            
+                        <li class="nav-header" style="margin-bottom: -20px">
+                            <div class="form-group">
+                                <label for="">Search by Radius</label><br>
+                                <p>Radius: <span id="value"></span> m</p>
+                                <input type="range" min="1" max="10000" value="0" id="regionRange" style="width: 100%;">
+                                <div>
+                                    <p style="float: left;">0</p>
+                                    <p class="text-right">10000</p>
+                                </div>
+                                
+                            </div>
                         </li>
 
                         <!-- Search by Region -->
-                        <li class="nav-header">Search by Region</li>
-                        <li class="nav-item">
-                            
+                        <li class="nav-header" style="margin-bottom: -20px;">
+                            <div class="form-group">
+                                <label for="">Search by Region</label><br>
+                                <select class="form-control-sm select2" style="width: 100%;">
+                                    <option selected="selected" disabled>Choose Region</option>
+                                    <option>Kota Padang</option>
+                                    <option>Kab. Solok</option>
+                                    <option>Kab. 50 Kota</option>
+                                </select>
+                            </div>
                         </li>
 
                         <!-- Search by Business Type -->
-                        <li class="nav-header">Search by Business Type</li>
-                        <li class="nav-item">
-                            
+                        <li class="nav-header">
+                            <div class="form-group">
+                                <label for="">Search by Business Type</label><br>
+                                <select class="form-control-sm select2" style="width: 100%;">
+                                    <option selected="selected" disabled>Choose Business Type</option>
+                                    <option>Makanan/Bahan Makanan</option>
+                                    <option>Photocopy/Print</option>
+                                    <option>Toko Kelontong</option>
+                                </select>
+                            </div>
                         </li>
-
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -273,6 +301,31 @@
     <script src="{{ url('js/dashboard.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ url('js/demo.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ url('js/select2.full.min.js') }}"></script>
+    <script>
+        // Select2
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+            theme: 'bootstrap4'
+            })
+        })
+
+        // Range Slider
+        var slider = document.getElementById("regionRange");
+        var output = document.getElementById("value");
+        output.innerHTML = slider.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+        }
+
+    </script>
 </body>
 
 </html>
