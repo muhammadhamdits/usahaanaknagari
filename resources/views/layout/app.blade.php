@@ -59,7 +59,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-user"></i>
-                        Alexander Pierce
+                        @if(Auth::guard('web')->check()){{ Auth::guard('web')->user()->username }} @elseif(Auth::guard('admin')->check()){{ Auth::guard('admin')->user()->username }} @else Guest @endif
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <a href="#" class="dropdown-item mb-3">
@@ -69,7 +69,7 @@
                             </div>
                             <div class="text-center">
                                 <h3 class="dropdown-item-title">
-                                    Alexander Pierce
+                                    @if(Auth::guard('web')->check()){{ Auth::guard('web')->user()->username }} @elseif(Auth::guard('admin')->check()){{ Auth::guard('admin')->user()->username }} @else Guest @endif
                                 </h3>
                             </div>
                             <!-- Message End -->
@@ -78,11 +78,7 @@
                             <p class="text-sm text-center">Ubah Password?</p>
                         </a>
                         <div class="dropdown-divider mt-2"></div>
-                        @if(Auth::guard('admin')->check())
                         <a href="{{ route('logOut') }}" class="dropdown-item dropdown-footer"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                        @else
-                        <a href="{{ route('logOut') }}" class="dropdown-item dropdown-footer"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                        @endif
                     </div>
                 </li>
                 @else
@@ -114,7 +110,7 @@
                         <img src="{{ url('img/avatar04.png') }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block">@if(Auth::guard('web')->check()){{ Auth::guard('web')->user()->username }} @elseif(Auth::guard('admin')->check()){{ Auth::guard('admin')->user()->username }} @else Guest @endif</a>
                     </div>
                 </div>
 
@@ -132,7 +128,7 @@
                                 </p>
                             </a>
                         </li>
-
+                        @if(Auth::guard('web')->check() || Auth::guard('admin')->check())
                         <!-- Usaha -->
                         <li class="nav-item">
                             <a href="pages/widgets.html" class="nav-link">
@@ -143,7 +139,9 @@
                                 </p>
                             </a>
                         </li>
+                        @endif
 
+                        @if(Auth::guard('admin')->check())
                         <!-- Pemilik -->
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
@@ -165,6 +163,7 @@
                                 </p>
                             </a>
                         </li>
+                        @endif
 
                         <!-- Search by Name -->
                         <li class="nav-header" style="margin-bottom: -20px">
