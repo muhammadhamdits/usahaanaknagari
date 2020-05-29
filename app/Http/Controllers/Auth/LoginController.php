@@ -46,13 +46,15 @@ class LoginController extends Controller
     protected function attemptLogin(Request $request)
     {
         // dd(Auth::guard('admin')->user());
-        $pemilikAttempt = Auth::guard('web')->attempt(
-            $this->credentials($request)
-        );
+        // $pemilikAttempt = Auth::guard('web')->attempt(
+        //     $this->credentials($request)
+        // );
+        $pemilikAttempt = Auth::guard('web')->attempt([
+            'username' => $request->username,
+            'password' => $request->password,
+            'status' => 1
+        ]);
         if(!$pemilikAttempt){
-            // dd(Auth::guard('admin')->attempt(
-            //     $this->credentials($request), $request->has('remember')
-            // ));
             return Auth::guard('admin')->attempt(
                 $this->credentials($request)
             );

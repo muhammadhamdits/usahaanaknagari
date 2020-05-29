@@ -34,6 +34,7 @@
         }
     </style>
     @endif
+    @toastr_css
     @yield('script')
 </head>
 
@@ -273,5 +274,6 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{ url('js/demo.js') }}"></script>
 </body>
-
+    @toastr_js
+    @toastr_render
 </html>
