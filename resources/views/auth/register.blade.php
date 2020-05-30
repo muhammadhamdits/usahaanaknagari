@@ -111,3 +111,14 @@
     </div>
 </div>
 @endsection
+
+@section('js')
+<script>
+    $("#tanda_pengenal").change(function(){
+        let namaFile = $(this).val();
+        namaFile = namaFile.split('\\');
+        namaFile = namaFile[namaFile.length-1];
+        $(".custom-file-label").html(namaFile);
+    });
+</script>
+@endsection

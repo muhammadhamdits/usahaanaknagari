@@ -30,11 +30,16 @@
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
+                <div class="text-center">
+                    <a href="{{ url('/') }}">
+                        <img src="{{ url('img/LOGO-KKN3.png') }}" alt="" width="100" class="mb-3">
+                    </a>
+                </div>
                 <p class="login-box-msg">Login to your account</p>
 
                 <form action="{{ route('login') }}" method="post">
                     @csrf
-                    <div class="input-group mt-3">
+                    <div class="input-group mt-1">
                         <input type="text" id="username" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" required placeholder="Username">
                         <div class="input-group-append">
                             <div class="input-group-text">

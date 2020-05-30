@@ -93,7 +93,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="{{ url('/') }}" class="brand-link">
                 <img src="{{ url('img/uan.png') }}" alt="Usaha Anak Nagari" class="rounded mx-auto d-block" style="filter: brightness(0) invert(1); margin-top:-11%; margin-bottom:-10%"  height="80">
                 <span class="brand-text font-weight-light"></span>
             </a>
@@ -118,7 +118,7 @@
 
                         <!-- Dashboard -->
                         <li class="nav-item has-treeview menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="{{ url('/') }}" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -273,6 +273,7 @@
     <script src="{{ url('js/dashboard.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ url('js/demo.js') }}"></script>
+    @yield('js')
 </body>
     @toastr_js
     @toastr_render
