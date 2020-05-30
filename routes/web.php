@@ -24,3 +24,4 @@ Route::get('/logout', function(){
 })->name('logOut');
 
 // Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('owners', 'OwnerController');
