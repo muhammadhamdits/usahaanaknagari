@@ -23,6 +23,18 @@ Route::get('/logout', function(){
     return redirect(route('home'));
 })->name('logOut');
 
+// Route for jenisusaha 
+
+Route::resource('jenisusaha', 'JenisUsahaController');
+
+// Route::get('jenisusaha', 'JenisUsahaController@index')->name('admin.jenisusaha.index');
+// Route::get('jenisusaha/create', 'JenisUsahaController@create')->name('admin.jenisusaha.create');
+// Route::post('jenisusaha/create', 'JenisUsahaController@store')->name('admin.jenisusaha.store');
+// Route::get('jenisusaha/{id}/edit', 'JenisUsahaController@edit')->name('admin.jenisusaha.edit');
+// Route::patch('jenisusaha/{id}', 'JenisUsahaController@update')->name('admin.jenisusaha.update');
+// Route::delete('jenisusaha/{id}', 'JenisUsahaController@destroy')->name('admin.jenisusaha.destroy');
+
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('owners', 'OwnerController');
 Route::resource('usaha', 'UsahaController');
+
