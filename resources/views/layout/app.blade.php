@@ -25,8 +25,32 @@
     <link rel="stylesheet" href="{{ url('css/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ url('css/summernote-bs4.css') }}">
+    <!-- Select2 -->
+    <!-- <link rel="stylesheet" href="{{ url('css/select2.min.css') }}"> -->
+    <!-- <link rel="stylesheet" href="{{ url('css/select2-bootstrap4.min') }}"> -->
+
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- jQuery -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.5/sp-1.1.1/datatables.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="{{ url('js/jquery.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <style>
+        li .select2-selection{
+            width: 200px !important;
+            height: calc(1.8125rem + 2px) !important;
+        }
+        li .select2-selection__arrow{
+            height: calc(1.8125rem + 2px) !important;
+            right: 8px !important;
+        }
+        li .select2-container--default .select2-selection--single .select2-selection__rendered{
+            line-height: 16.5px !important;
+        }
+    </style>
+    @yield('css')
     @if(!Auth::guard('admin')->check() && !Auth::guard('web')->check())
     <style>
         a.text-primary:hover{
@@ -34,6 +58,7 @@
         }
     </style>
     @endif
+    @toastr_css
     @yield('script')
 </head>
 
@@ -92,7 +117,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="{{ url('/') }}" class="brand-link">
                 <img src="{{ url('img/uan.png') }}" alt="Usaha Anak Nagari" class="rounded mx-auto d-block" style="filter: brightness(0) invert(1); margin-top:-11%; margin-bottom:-10%"  height="80">
                 <span class="brand-text font-weight-light"></span>
             </a>
@@ -117,7 +142,7 @@
 
                         <!-- Dashboard -->
                         <li class="nav-item has-treeview menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="{{ url('/') }}" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -131,7 +156,7 @@
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Usaha
-                                    <span class="right badge badge-danger">78</span>
+                                    <span class="right badge badge-info">78</span>
                                 </p>
                             </a>
                         </li>
@@ -140,7 +165,7 @@
                         @if(Auth::guard('admin')->check())
                         <!-- Pemilik -->
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('owners.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Pemilik
@@ -151,7 +176,7 @@
 
                         <!-- Jenis Usaha -->
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('jenisusaha.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
                                     Jenis Usaha
@@ -162,29 +187,53 @@
                         @endif
 
                         <!-- Search by Name -->
-                        <li class="nav-header">Search by Name</li>
-                        <li class="nav-item">
-                
+                        <li class="nav-header" style="margin-bottom: -20px">
+                            <div class="form-group">
+                                <label for="usaha">Search by Name</label><br>
+                                <input type="text" class="form-control-sm" style="width: 100%; height: 35px; border-radius:5px;" placeholder="Masukkan Nama Usaha ..." id="usaha">
+                            </div>
                         </li>
 
+
                         <!-- Search by Radius -->
-                        <li class="nav-header">Search by Radius</li>
-                        <li class="nav-item">
-                            
+                        <li class="nav-header" style="margin-bottom: -20px">
+                            <div class="form-group">
+                                <label for="">Search by Radius</label><br>
+                                <p>Radius: <span id="value"></span> m</p>
+                                <input type="range" min="1" max="10000" value="0" id="regionRange" style="width: 100%;">
+                                <div>
+                                    <p style="float: left;">0</p>
+                                    <p class="text-right">10000</p>
+                                </div>
+                                
+                            </div>
                         </li>
 
                         <!-- Search by Region -->
-                        <li class="nav-header">Search by Region</li>
-                        <li class="nav-item">
-                            
+                        <li class="nav-header" style="margin-bottom: -20px;">
+                            <div class="form-group">
+                                <label for="">Search by Region</label><br>
+                                <select class="select2" style="width: 100%;">
+                                    <option selected="selected" disabled>Choose Region</option>
+                                    <option>Kota Padang</option>
+                                    <option>Kab. Solok</option>
+                                    <option>Kab. 50 Kota</option>
+                                </select>
+                            </div>
                         </li>
 
                         <!-- Search by Business Type -->
-                        <li class="nav-header">Search by Business Type</li>
-                        <li class="nav-item">
-                            
+                        <li class="nav-header">
+                            <div class="form-group">
+                                <label for="">Search by Business Type</label><br>
+                                <select class="select2" style="width: 100%;">
+                                    <option selected="selected" disabled>Choose Business Type</option>
+                                    <option>Makanan Atau Bahan Makanan</option>
+                                    <option>Photocopy/Print</option>
+                                    <option>Toko Kelontong</option>
+                                </select>
+                            </div>
                         </li>
-
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -238,8 +287,7 @@
     </div>
     <!-- ./wrapper -->
 
-    <!-- jQuery -->
-    <script src="{{ url('js/jquery.min.js') }}"></script>
+    
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ url('js/jquery-ui.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -272,6 +320,34 @@
     <script src="{{ url('js/dashboard.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ url('js/demo.js') }}"></script>
-</body>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.5/sp-1.1.1/datatables.min.js"></script>
+    @yield('js')
+    <!-- Select2 -->
+    <!-- <script src="{{ url('js/select2.full.min.js') }}"></script> -->
+    <script>
+        // Select2
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
 
+            //Initialize Select2 Elements
+            // $('.select2bs4').select2({
+            // theme: 'bootstrap4'
+            // })
+        })
+
+        // Range Slider
+        var slider = document.getElementById("regionRange");
+        var output = document.getElementById("value");
+        output.innerHTML = slider.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+        }
+
+    </script>
+</body>
+    @toastr_js
+    @toastr_render
 </html>

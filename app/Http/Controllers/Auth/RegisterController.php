@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -28,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -49,9 +51,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'tanda_pengenal' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:20480'],
+            'nama' => ['required', 'string'],
+            'username' => ['required', 'string', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'confirmed'],
         ]);
     }
 
@@ -63,10 +67,40 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $request = request();
+
+        $tanda_pengenal = $request->file('tanda_pengenal');
+        $nama_file = time() . "-pengenal." . $tanda_pengenal->getClientOriginalExtension();
+
+        $upload_path = 'img/pengenal/';
+        $saveName = $upload_path . $nama_file;
+        $success = $tanda_pengenal->move($upload_path, $nama_file);
+
+        toastr()->success('Berhasil registrasi. Silakan tunggu konfirmasi akun ada dengan mengecek email secara berkala.');
+
         return User::create([
-            'name' => $data['name'],
+            'nama' => $data['nama'],
+            'tempat_lahir' => $data['tempat_lahir'],
+            'tanggal_lahir' => $data['tanggal_lahir'],
+            'hp' => $data['hp'],
             'email' => $data['email'],
+            'username' => $data['username'],
             'password' => Hash::make($data['password']),
+            'status' => 0,
+            'alamat' => $data['alamat'],
+            'tanda_pengenal' => $saveName
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        // $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
     }
 }
