@@ -2,11 +2,11 @@
 
 @section('css')
 <style>
-.select2-selection{
+.card .select2-selection{
     width: 100% !important;
     height: calc(2.25rem + 2px) !important;
 }
-.select2-selection__arrow{
+.card .select2-selection__arrow{
     height: calc(2.25rem + 2px) !important;
     right: 8px !important;
 }

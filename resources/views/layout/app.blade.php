@@ -26,8 +26,8 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ url('css/summernote-bs4.css') }}">
     <!-- Select2 -->
-    <link rel="stylesheet" href="{{ url('css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ url('css/select2-bootstrap4.min') }}">
+    <!-- <link rel="stylesheet" href="{{ url('css/select2.min.css') }}"> -->
+    <!-- <link rel="stylesheet" href="{{ url('css/select2-bootstrap4.min') }}"> -->
 
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -37,6 +37,19 @@
     <script src="{{ url('js/jquery.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <style>
+        li .select2-selection{
+            width: 200px !important;
+            height: calc(1.8125rem + 2px) !important;
+        }
+        li .select2-selection__arrow{
+            height: calc(1.8125rem + 2px) !important;
+            right: 8px !important;
+        }
+        li .select2-container--default .select2-selection--single .select2-selection__rendered{
+            line-height: 16.5px !important;
+        }
+    </style>
     @yield('css')
     @if(!Auth::guard('admin')->check() && !Auth::guard('web')->check())
     <style>
@@ -200,7 +213,7 @@
                         <li class="nav-header" style="margin-bottom: -20px;">
                             <div class="form-group">
                                 <label for="">Search by Region</label><br>
-                                <select class="form-control-sm select2" style="width: 100%;">
+                                <select class="select2" style="width: 100%;">
                                     <option selected="selected" disabled>Choose Region</option>
                                     <option>Kota Padang</option>
                                     <option>Kab. Solok</option>
@@ -213,9 +226,9 @@
                         <li class="nav-header">
                             <div class="form-group">
                                 <label for="">Search by Business Type</label><br>
-                                <select class="form-control-sm select2" style="width: 100%;">
+                                <select class="select2" style="width: 100%;">
                                     <option selected="selected" disabled>Choose Business Type</option>
-                                    <option>Makanan/Bahan Makanan</option>
+                                    <option>Makanan Atau Bahan Makanan</option>
                                     <option>Photocopy/Print</option>
                                     <option>Toko Kelontong</option>
                                 </select>
@@ -310,7 +323,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.5/sp-1.1.1/datatables.min.js"></script>
     @yield('js')
     <!-- Select2 -->
-    <script src="{{ url('js/select2.full.min.js') }}"></script>
+    <!-- <script src="{{ url('js/select2.full.min.js') }}"></script> -->
     <script>
         // Select2
         $(function () {
@@ -318,9 +331,9 @@
             $('.select2').select2()
 
             //Initialize Select2 Elements
-            $('.select2bs4').select2({
-            theme: 'bootstrap4'
-            })
+            // $('.select2bs4').select2({
+            // theme: 'bootstrap4'
+            // })
         })
 
         // Range Slider
