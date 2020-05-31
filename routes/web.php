@@ -25,3 +25,4 @@ Route::get('/logout', function(){
 
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('owners', 'OwnerController');
+Route::resource('usaha', 'UsahaController');

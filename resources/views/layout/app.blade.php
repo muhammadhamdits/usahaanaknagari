@@ -28,7 +28,11 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- jQuery -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.5/sp-1.1.1/datatables.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
     <script src="{{ url('js/jquery.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     @yield('css')
     @if(!Auth::guard('admin')->check() && !Auth::guard('web')->check())
     <style>
@@ -275,6 +279,7 @@
     <script src="{{ url('js/dashboard.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ url('js/demo.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.5/sp-1.1.1/datatables.min.js"></script>
     @yield('js')
 </body>
     @toastr_js

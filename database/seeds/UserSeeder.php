@@ -17,5 +17,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('halim'),
             'status' => 1,
         ]);
+        DB::table('jenis_usaha')->insert(['nama' => "Barang"]);
+        DB::table('jenis_usaha')->insert(['nama' => "Jasa"]);
+        DB::table('jenis_usaha')->insert(['nama' => "Lainnya"]);
     }
 }
