@@ -27,6 +27,9 @@
     <link rel="stylesheet" href="{{ url('css/summernote-bs4.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="{{ url('js/jquery.min.js') }}"></script>
+    @yield('css')
     @if(!Auth::guard('admin')->check() && !Auth::guard('web')->check())
     <style>
         a.text-primary:hover{
@@ -239,8 +242,7 @@
     </div>
     <!-- ./wrapper -->
 
-    <!-- jQuery -->
-    <script src="{{ url('js/jquery.min.js') }}"></script>
+    
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ url('js/jquery-ui.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

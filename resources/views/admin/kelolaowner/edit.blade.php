@@ -1,47 +1,37 @@
 @extends('layout.app')
 
 @section('content')
-
-    <div class="row justify-content-center">
-        <div class="col">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="card p-3">
-                        @foreach($user as $users)
-                        <form action="{{ route('owners.update', $users->id) }}" method="post">
-                            {{ csrf_field() }}
-                            {{ method_field('PUT') }}
-                            <div class="form-group">
-                                <label for="nama">Nama:</label>
-                                <input type="text" class="form-control" id="nama" name="nama" value="{{ $users->nama }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="tempat_lahir">Tempat Lahir:</label>
-                                <input type="tempat" class="form-control" id="tempat_lahir" name="tempat_lahir" value="{{ $users->tempat_lahir }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="tanggal_lahir">Tanggal Lahir:</label>
-                                <input type="text" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="{{ $users->tanggal_lahir }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="alamat">Alamat:</label>
-                                <textarea class="form-control" id="alamat" name="alamat">{{ $users->alamat }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="nohp">No Hp:</label>
-                                <input type="text" class="form-control" id="hp" name="hp" value="{{ $users->hp }}">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-md btn-primary">Submit</button>
-                                <button type="reset" class="btn btn-md btn-danger">Cancel</button>
-                            </div>
-                        </form>
-                        @endforeach
+<div class="row justify-content-center">
+    <div class="card col-10">
+        <div class="card-body">
+            @foreach($user as $users)
+            <form action="{{ route('owners.update', $users->id) }}" method="post" class="mt-3 mb-3">
+                {{ csrf_field() }}
+                {{ method_field('PUT') }}
+                {!! formInputRow('Nama Lengkap', 'text', 'nama', 'nama lengkap', '', $users->nama, $errors->first('nama')) !!}
+                {!! formInputCol('Tempat Lahir', 'text', 'tempat_lahir', 'tempat lahir', '', $users->tempat_lahir, $errors->first('tempat_lahir'), 'Tanggal Lahir', 'date', 'tanggal_lahir', '', '', $users->tanggal_lahir, $errors->first('tanggal_lahir')) !!}
+                <div class="row justify-content-center">
+                    <div class="col-8 form-group">
+                        <label for="alamat">Alamat:</label>
+                        <textarea name="alamat" id="alamat" rows="3" class="form-control @error('alamat') is-invalid @enderror" placeholder="Masukkan Alamat ...">{{ $users->alamat }}</textarea>
+                        @error('alamat')
+                            <p class="text-danger text-sm">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
-
-            </div>
-
+                {!! formInputRow('No. HP', 'text', 'hp', 'No. HP', '', $users->hp, $errors->first('hp')) !!}
+                <div class="row justify-content-center mt-4">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <a href="{{ url('/owners') }}" class="btn btn-warning float-left"><i class="fas fa-arrow-left"></i> Kembali</a>
+                        <button type="reset" class="btn btn-secondary float-right"><i class="fas fa-undo"></i> Reset</button>
+                        <button type="submit" class="btn btn-primary float-right mr-2"><i class="fas fa-save"></i> Update</button>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+            </form>
+            @endforeach
         </div>
     </div>
+</div>
 @endsection
