@@ -75,3 +75,25 @@ function formText($label, $name, $required, $old, $message, $col=8){
         </div>
     </div>";
 }
+
+function format_tgl_indonesia($tanggal){
+	$bulan = [
+        1 =>   
+        'Januari',
+		'Februari',
+		'Maret',
+		'April',
+		'Mei',
+		'Juni',
+		'Juli',
+		'Agustus',
+		'September',
+		'Oktober',
+		'November',
+		'Desember'
+    ];
+    
+	$pecah = explode('-', $tanggal);
+	
+	return $pecah[2] . ' ' . $bulan[ (int)$pecah[1] ] . ' ' . $pecah[0];
+}
