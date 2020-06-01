@@ -47,7 +47,7 @@ function formSelect($label, $name, $options){
     <div class='row justify-content-center mb-3'>
         <div class='col-12 form-group'>
             <label for='$name'>$label:</label>
-            <select name='$name' id='$name' class='form-control'>";
+            <select name='$name' id='$name' class='form-control select2'>";
                 foreach($options as $value => $option){
                     $element .= "
                     <option value='$value'>$option</option>";

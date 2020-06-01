@@ -16,7 +16,7 @@
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ url('css/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
-    <link rel="stylesheet" href="{{ url('css/jqvmap.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url('css/jqvmap.min.css') }}"> -->
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ url('css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
@@ -301,8 +301,8 @@
     <!-- Sparkline -->
     <script src="{{ url('js/sparkline.js') }}"></script>
     <!-- JQVMap -->
-    <script src="{{ url('js/jquery.vmap.min.js') }}"></script>
-    <script src="{{ url('js/jquery.vmap.usa.js') }}"></script>
+    <!-- <script src="{{ url('js/jquery.vmap.min.js') }}"></script> -->
+    <!-- <script src="{{ url('js/jquery.vmap.usa.js') }}"></script> -->
     <!-- jQuery Knob Chart -->
     <script src="{{ url('js/jquery.knob.min.js') }}"></script>
     <!-- daterangepicker -->
@@ -317,9 +317,9 @@
     <!-- AdminLTE App -->
     <script src="{{ url('js/adminlte.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{ url('js/dashboard.js') }}"></script>
+    <!-- <script src="{{ url('js/dashboard.js') }}"></script> -->
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ url('js/demo.js') }}"></script>
+    <!-- <script src="{{ url('js/demo.js') }}"></script> -->
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.5/sp-1.1.1/datatables.min.js"></script>
     @yield('js')
     <!-- Select2 -->
