@@ -38,3 +38,8 @@ Route::resource('jenisusaha', 'JenisUsahaController');
 Route::resource('owners', 'OwnerController');
 Route::resource('usaha', 'UsahaController');
 
+// Route Profile
+Route::get('/profile', 'ProfileController@show')->name('owner.profile.show');
+Route::get('/profile/{id}/edit', 'ProfileController@edit')->name('owner.profile.edit');
+Route::put('/profile/{id}', 'ProfileController@update');
+

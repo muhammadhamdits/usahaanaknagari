@@ -83,7 +83,7 @@
                         @if(Auth::guard('web')->check()){{ Auth::guard('web')->user()->username }} @elseif(Auth::guard('admin')->check()){{ Auth::guard('admin')->user()->username }} @else Guest @endif
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item mb-3">
+                        <a href="{{ '/profile' }}" class="dropdown-item mb-3">
                             <!-- Message Start -->
                             <div class="text-center">
                                 <img src="{{ url('img/avatar04.png') }}" alt="User Avatar" class="img-size-50 mx-auto d-block img-circle">
