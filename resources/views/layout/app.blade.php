@@ -152,7 +152,7 @@
                         @if(Auth::guard('web')->check() || Auth::guard('admin')->check())
                         <!-- Usaha -->
                         <li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link">
+                            <a href="{{ route('usaha.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Usaha

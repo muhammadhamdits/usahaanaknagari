@@ -21,11 +21,85 @@
 <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap&libraries=&v=weekly" defer></script>
 <script>
     var map;
+    var markers = [];
+
     function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: -0.9525199, lng: 100.4226954 },
-        zoom: 8
-    });
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: -0.9525199, lng: 100.4226954 },
+            zoom: 16
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('Lokasi sekarang');
+                infoWindow.open(map);
+                map.setCenter(pos);
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+        // Add marker on click
+        map.addListener('click', function(event) {
+            let lat = event.latLng.lat();
+            let lng = event.latLng.lng();
+            $("#latitude").val(lat);
+            $("#longitude").val(lng);
+            deleteMarkers();
+            addMarker(event.latLng);
+        });
+    }
+
+    // Adds a marker to the map and push to the array.
+    function addMarker(location) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+        map.setCenter(location);
+        markers.push(marker);
+    }
+
+    // Sets the map on all markers in the array.
+    function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+        }
+    }
+
+    // Removes the markers from the map, but keeps them in the array.
+    function clearMarkers() {
+        setMapOnAll(null);
+    }
+
+    // Shows any markers currently in the array.
+    function showMarkers() {
+        setMapOnAll(map);
+    }
+
+    // Deletes all markers in the array by removing references to them.
+    function deleteMarkers() {
+        clearMarkers();
+        markers = [];
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
     }
 </script>
 @endsection
@@ -62,7 +136,7 @@
                             @enderror
                         </div>
                     </div>
-                    {!! formInputCol('Latitude', 'text', 'latitude', 'latitude', 'required', old('latitude'), $errors->first('latitude'), 'Longitude', 'text', 'longitude', 'longitude', 'required', old('longitude'), $errors->first('longitude'), 6) !!}
+                    {!! formInputCol('Latitude', 'number', 'latitude', 'latitude', 'required', old('latitude'), $errors->first('latitude'), 'Longitude', 'number', 'longitude', 'longitude', 'required', old('longitude'), $errors->first('longitude'), 6) !!}
                     <div id="map" style="height: 322px;" class="mb-4"></div>
                     {!! formText('Keterangan Tambahan', 'ket', 'required', old('ket'), $errors->first('ket'), 12) !!}
                     <div class="row justify-content-center mt-4">
@@ -82,11 +156,22 @@
 @section('js')
 <script>
     $("#jenis_usaha_id").select2();
+
     $("#foto").change(function(){
         let namaFile = $(this).val();
         namaFile = namaFile.split('\\');
         namaFile = namaFile[namaFile.length-1];
         $(".custom-file-label").html(namaFile);
+    });
+
+    $("#latitude").add("#longitude").on('input', function(){
+        let lat = $("#latitude").val();
+        let lng = $("#longitude").val();
+
+        if((lat != '' && lng != '') ){
+            deleteMarkers();
+            addMarker(new google.maps.LatLng(lat,lng));
+        }
     });
 </script>
 @endsection
