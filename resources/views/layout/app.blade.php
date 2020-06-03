@@ -141,8 +141,8 @@
                         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
                         <!-- Dashboard -->
-                        <li class="nav-item has-treeview menu-open">
-                            <a href="{{ url('/') }}" class="nav-link active">
+                        <li class="nav-item">
+                            <a href="{{ url('/') }}" class="nav-link @if(Request::segment(1) == null) active @endif">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -152,7 +152,7 @@
                         @if(Auth::guard('web')->check() || Auth::guard('admin')->check())
                         <!-- Usaha -->
                         <li class="nav-item">
-                            <a href="{{ route('usaha.index') }}" class="nav-link">
+                            <a href="{{ route('usaha.index') }}" class="nav-link @if(Request::segment(1) == 'usaha') active @endif">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Usaha
@@ -165,7 +165,7 @@
                         @if(Auth::guard('admin')->check())
                         <!-- Pemilik -->
                         <li class="nav-item has-treeview">
-                            <a href="{{ route('owners.index') }}" class="nav-link">
+                            <a href="{{ route('owners.index') }}" class="nav-link @if(Request::segment(1) == 'owners') active @endif">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Pemilik
@@ -176,7 +176,7 @@
 
                         <!-- Jenis Usaha -->
                         <li class="nav-item has-treeview">
-                            <a href="{{ route('jenisusaha.index') }}" class="nav-link">
+                            <a href="{{ route('jenisusaha.index') }}" class="nav-link @if(Request::segment(1) == 'jenisusaha') active @endif">
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
                                     Jenis Usaha
@@ -186,6 +186,7 @@
                         </li>
                         @endif
 
+                        @if(Request::segment(1) == null)
                         <!-- Search by Name -->
                         <li class="nav-header" style="margin-bottom: -20px">
                             <div class="form-group">
@@ -234,6 +235,7 @@
                                 </select>
                             </div>
                         </li>
+                        @endif
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

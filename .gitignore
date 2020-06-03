@@ -4,6 +4,8 @@
 /public/error_log
 /public/img/pengenal/*
 !/public/img/pengenal/.gitkeep
+/public/img/usaha/*
+!/public/img/usaha/.gitkeep
 /storage/*.key
 /vendor
 .env
