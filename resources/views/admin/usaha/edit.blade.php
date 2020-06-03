@@ -25,30 +25,11 @@
 
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: -0.9525199, lng: 100.4226954 },
+            center: { lat: parseFloat("{{ $latlng[1] }}"), lng: parseFloat("{{ $latlng[0] }}") },
             zoom: 16
         });
         infoWindow = new google.maps.InfoWindow;
-
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-
-                infoWindow.setPosition(pos);
-                infoWindow.setContent('Lokasi sekarang');
-                infoWindow.open(map);
-                map.setCenter(pos);
-            }, function() {
-                handleLocationError(true, infoWindow, map.getCenter());
-            });
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-        }
+        addMarker(new google.maps.LatLng(parseFloat("{{ $latlng[1] }}"),parseFloat("{{ $latlng[0] }}")));
 
         // Add marker on click
         map.addListener('click', function(event) {
@@ -94,30 +75,24 @@
         markers = [];
     }
 
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-    }
 </script>
 @endsection
 
 @section('content')
-<form action="{{ route('usaha.store') }}" method="post" enctype="multipart/form-data">
+<form action="{{ route('usaha.update', $usaha->id) }}" method="post" enctype="multipart/form-data">
     <div class="row">
         @csrf
+        @method('PUT')
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    {!! formInputRow('Nama Usaha*', 'text', 'nama', 'nama usaha', 'required', old('nama'), $errors->first('nama'), 12) !!}
-                    {!! formSelect('Jenis Usaha*', 'jenis_usaha_id', $jenisUsahas) !!}
-                    {!! formInputRow('Nama Pemilik', 'text', 'pemilik', 'nama pemilik', '', old('pemilik'), $errors->first('pemilik'), 12) !!}
-                    {!! formInputRow('No. HP', 'text', 'hp', 'No. HP', '', old('hp'), $errors->first('hp'), 12) !!}
-                    {!! formInputCol('Jam Buka', 'time', 'jam_buka', '', '', old('jam_buka'), $errors->first('jam_buka'), 'Jam Tutup', 'time', 'jam_tutup', '', '', old('jam_tutup'), $errors->first('jam_tutup'), 6) !!}
-                    {!! formInputRow('Barang/Jasa tersedia*', 'text', 'barang_jasa', 'Barang/Jasa', 'required', old('barang_jasa'), $errors->first('barang_jasa'), 12) !!}
-                    {!! formText('Alamat', 'alamat', 'required', old('alamat'), $errors->first('alamat'), 12) !!}
+                    {!! formInputRow('Nama Usaha*', 'text', 'nama', 'nama usaha', 'required', $usaha->nama, $errors->first('nama'), 12) !!}
+                    {!! formSelect('Jenis Usaha*', 'jenis_usaha_id', $jenisUsahas, $usaha->jenis_usaha_id) !!}
+                    {!! formInputRow('Nama Pemilik', 'text', 'pemilik', 'nama pemilik', '', $usaha->pemilik, $errors->first('pemilik'), 12) !!}
+                    {!! formInputRow('No. HP', 'text', 'hp', 'No. HP', '', $usaha->hp, $errors->first('hp'), 12) !!}
+                    {!! formInputCol('Jam Buka', 'time', 'jam_buka', '', '', $usaha->jam_buka, $errors->first('jam_buka'), 'Jam Tutup', 'time', 'jam_tutup', '', '', $usaha->jam_tutup, $errors->first('jam_tutup'), 6) !!}
+                    {!! formInputRow('Barang/Jasa tersedia*', 'text', 'barang_jasa', 'Barang/Jasa', 'required', $usaha->barang_jasa, $errors->first('barang_jasa'), 12) !!}
+                    {!! formText('Alamat', 'alamat', 'required', $usaha->alamat, $errors->first('alamat'), 12) !!}
                 </div>
             </div>
         </div>
@@ -125,25 +100,31 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row justify-content-center mb-3">
-                        <div class="col-12 form-group">
+                        <div class="col-6">
+                            <label for="foto">Dokumentasi:</label>
+                            <div class="text-center">
+                                <img src="{{ url($usaha->foto) }}" alt="" height="120">
+                            </div>
+                        </div>
+                        <div class="col-6 form-group">
                             <label for="foto">Dokumentasi*:</label>
                             <div class="custom-file">
-                                <input type="file" name="foto" id="foto" class="custom-file-input @error('foto') is-invalid @enderror" value="{{ old('foto') }}" required>
-                                <label for="foto" class="custom-file-label">Pilih file</label>
+                                <input type="file" name="foto" id="foto" class="custom-file-input @error('foto') is-invalid @enderror">
+                                <label for="foto" class="custom-file-label"></label>
                             </div>
                             @error('foto')
                             <p class="text-danger text-sm">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
-                    {!! formInputCol('Latitude', 'number', 'latitude', 'latitude', 'required', old('latitude'), $errors->first('latitude'), 'Longitude', 'number', 'longitude', 'longitude', 'required', old('longitude'), $errors->first('longitude'), 6, "step=0.00000000000000001", "step=0.00000000000000001") !!}
+                    {!! formInputCol('Latitude', 'number', 'latitude', 'latitude', 'required', $latlng[1], $errors->first('latitude'), 'Longitude', 'number', 'longitude', 'longitude', 'required', $latlng[0], $errors->first('longitude'), 6, "step=0.00000000000000001", "step=0.00000000000000001") !!}
                     <div id="map" style="height: 322px;" class="mb-4"></div>
-                    {!! formText('Keterangan Tambahan', 'ket', 'required', old('ket'), $errors->first('ket'), 12) !!}
+                    {!! formText('Keterangan Tambahan', 'ket', 'required', $usaha->ket, $errors->first('ket'), 12) !!}
                     <div class="row justify-content-center mt-4">
                         <div class="col-12">
                             <a href="{{ url('/usaha') }}" class="btn btn-warning float-left"><i class="fas fa-arrow-left"></i> Kembali</a>
                             <button type="reset" class="btn btn-secondary float-right"><i class="fas fa-undo"></i> Reset</button>
-                            <button type="submit" class="btn btn-primary float-right mr-2"><i class="fas fa-save"></i> Simpan</button>
+                            <button type="submit" class="btn btn-primary float-right mr-2"><i class="fas fa-save"></i> Update</button>
                         </div>
                     </div>
                 </div>

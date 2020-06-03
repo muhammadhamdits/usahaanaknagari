@@ -53,6 +53,14 @@ class OwnerController extends Controller
     }
     public function update(Request $request, $id)
     {   
+        $request->validate([
+            'nama' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'alamat' => 'required',
+            'hp' => 'required'
+        ]);
+        
         $user = User::where('id','=', $id)->first();
         $user->update($request->all());
         toastr()->success('Data '.$user->username.' berhasil diupdate');

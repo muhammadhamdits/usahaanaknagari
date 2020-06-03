@@ -14,7 +14,7 @@ class CreateUsahaTable extends Migration
     public function up()
     {
         Schema::create('usaha', function (Blueprint $table) {
-            $table->unsignedBigInteger('id');
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('jenis_usaha_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('nama')->nullable();
@@ -30,7 +30,6 @@ class CreateUsahaTable extends Migration
             $table->string('pemilik')->nullable();
             $table->timestamps();
 
-            $table->primary('id');
             $table->foreign('jenis_usaha_id')->references('id')->on('jenis_usaha');
             $table->foreign('user_id')->references('id')->on('users');
         });

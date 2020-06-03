@@ -16,7 +16,7 @@
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ url('css/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
-    <link rel="stylesheet" href="{{ url('css/jqvmap.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url('css/jqvmap.min.css') }}"> -->
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ url('css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
@@ -83,7 +83,7 @@
                         @if(Auth::guard('web')->check()){{ Auth::guard('web')->user()->username }} @elseif(Auth::guard('admin')->check()){{ Auth::guard('admin')->user()->username }} @else Guest @endif
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item mb-3">
+                        <a href="{{ '/profile' }}" class="dropdown-item mb-3">
                             <!-- Message Start -->
                             <div class="text-center">
                                 <img src="{{ url('img/avatar04.png') }}" alt="User Avatar" class="img-size-50 mx-auto d-block img-circle">
@@ -141,8 +141,8 @@
                         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
                         <!-- Dashboard -->
-                        <li class="nav-item has-treeview menu-open">
-                            <a href="{{ url('/') }}" class="nav-link active">
+                        <li class="nav-item">
+                            <a href="{{ url('/') }}" class="nav-link @if(Request::segment(1) == null) active @endif">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -152,7 +152,7 @@
                         @if(Auth::guard('web')->check() || Auth::guard('admin')->check())
                         <!-- Usaha -->
                         <li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link">
+                            <a href="{{ route('usaha.index') }}" class="nav-link @if(Request::segment(1) == 'usaha') active @endif">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Usaha
@@ -165,7 +165,7 @@
                         @if(Auth::guard('admin')->check())
                         <!-- Pemilik -->
                         <li class="nav-item has-treeview">
-                            <a href="{{ route('owners.index') }}" class="nav-link">
+                            <a href="{{ route('owners.index') }}" class="nav-link @if(Request::segment(1) == 'owners') active @endif">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Pemilik
@@ -176,7 +176,7 @@
 
                         <!-- Jenis Usaha -->
                         <li class="nav-item has-treeview">
-                            <a href="{{ route('jenisusaha.index') }}" class="nav-link">
+                            <a href="{{ route('jenisusaha.index') }}" class="nav-link @if(Request::segment(1) == 'jenisusaha') active @endif">
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
                                     Jenis Usaha
@@ -186,6 +186,7 @@
                         </li>
                         @endif
 
+                        @if(Request::segment(1) == null)
                         <!-- Search by Name -->
                         <li class="nav-header" style="margin-bottom: -20px">
                             <div class="form-group">
@@ -234,6 +235,7 @@
                                 </select>
                             </div>
                         </li>
+                        @endif
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -301,8 +303,8 @@
     <!-- Sparkline -->
     <script src="{{ url('js/sparkline.js') }}"></script>
     <!-- JQVMap -->
-    <script src="{{ url('js/jquery.vmap.min.js') }}"></script>
-    <script src="{{ url('js/jquery.vmap.usa.js') }}"></script>
+    <!-- <script src="{{ url('js/jquery.vmap.min.js') }}"></script> -->
+    <!-- <script src="{{ url('js/jquery.vmap.usa.js') }}"></script> -->
     <!-- jQuery Knob Chart -->
     <script src="{{ url('js/jquery.knob.min.js') }}"></script>
     <!-- daterangepicker -->
@@ -317,9 +319,9 @@
     <!-- AdminLTE App -->
     <script src="{{ url('js/adminlte.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{ url('js/dashboard.js') }}"></script>
+    <!-- <script src="{{ url('js/dashboard.js') }}"></script> -->
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ url('js/demo.js') }}"></script>
+    <!-- <script src="{{ url('js/demo.js') }}"></script> -->
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/r-2.2.5/sp-1.1.1/datatables.min.js"></script>
     @yield('js')
     <!-- Select2 -->
