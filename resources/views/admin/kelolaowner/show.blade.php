@@ -45,7 +45,7 @@
                         </tr>
                     </table>
                     <div class="form-group mt-5"> 
-                        <a class='btn btn-sm btn-primary' href="{{ route('owners.index') }}"><i class="fas fa-arrow-left mr-1"></i> Kembali</a>
+                        <a class='btn btn-sm btn-primary' href="{{ route('pemilik.index') }}"><i class="fas fa-arrow-left mr-1"></i> Kembali</a>
                     </div>
                 </div>
             </div>

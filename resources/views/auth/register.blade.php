@@ -1,3 +1,7 @@
+<?php
+    $judul = "Daftar Sebagai Pemilik";
+?>
+
 @extends('../layout/app')
 
 @section('content')

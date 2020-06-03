@@ -14,14 +14,16 @@ class ProfileController extends Controller
     {
         $id = Auth::user()->id;
         $user = DB::table('users')->find($id);
-        return view('owner.profile.show', compact('user'));
+        $judul = "Profil";
+        return view('owner.profile.show', compact('user', 'judul'));
     }
 
     public function edit($id)
     {
         // $user = DB::table('users')->find($id);
         $user = User::where('id',$id)->get();
-        return view('owner.profile.edit', compact('user'));
+        $judul = "Ubah Profil";
+        return view('owner.profile.edit', compact('user', 'judul'));
     }
 
     public function update(Request $request, $id)

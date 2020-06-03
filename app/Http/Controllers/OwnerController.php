@@ -13,11 +13,13 @@ class OwnerController extends Controller
     public function index()
     {
         $users = User::where('status', 1)->get();
-        return view('admin.kelolaowner.index', compact('users'));
+        $judul = "Kelola Data Pemilik";
+        return view('admin.kelolaowner.index', compact('users', 'judul'));
     }
     public function create()
     {
-        return view('admin.kelolaowner.create');
+        $judul = "Tambah Data Pemilik";
+        return view('admin.kelolaowner.create', compact('judul'));
     }
     public function store(Request $request)
     {
@@ -38,18 +40,19 @@ class OwnerController extends Controller
             'alamat' => $request->alamat,
         ]);
         toastr()->success('Data '.$user->username.' berhasil ditambahkan');
-        return redirect()->route('owners.index');
+        return redirect()->route('pemilik.index');
     }
     public function show($id)
     {
         $users = User::find($id);
-        return view('admin.kelolaowner.show', compact('users'));
+        $judul = "Detail Data Pemilik";
+        return view('admin.kelolaowner.show', compact('users', 'judul'));
     }
     public function edit($id)
     {
         $user = User::where('id',$id)->get();
-
-        return view('admin.kelolaowner.edit', compact('user'));
+        $judul = "Edit Data Pemilik";
+        return view('admin.kelolaowner.edit', compact('user', 'judul'));
     }
     public function update(Request $request, $id)
     {   
@@ -64,13 +67,13 @@ class OwnerController extends Controller
         $user = User::where('id','=', $id)->first();
         $user->update($request->all());
         toastr()->success('Data '.$user->username.' berhasil diupdate');
-        return redirect()->route('owners.show', [$user->id]);
+        return redirect()->route('pemilik.show', [$user->id]);
     }
     public function destroy($id)
     {
         $user = User::where('id','=',$id)->first();
         toastr()->success('Data '.$user->username.' berhasil dihapus');
         $user->delete();
-        return redirect()->route('owners.index');
+        return redirect()->route('pemilik.index');
     }
 }

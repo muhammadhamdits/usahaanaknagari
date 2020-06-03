@@ -30,7 +30,7 @@ div.dt-buttons {
                             <div class="modal fade" id="modalJenisUsaha" tabindex="-1" role="dialog" aria-labelledby="modalJenisUsahaLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <form action="{{ route('jenisusaha.store') }}" method="post" id="formJenisUsaha">
+                                        <form action="{{ route('jenisUsaha.store') }}" method="post" id="formJenisUsaha">
                                             @csrf
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="modalJenisUsahaLabel">Tambah Data Jenis Usaha</h5>
@@ -84,7 +84,7 @@ div.dt-buttons {
                                                             <i class="fas fa-edit" data-id="{{ $jenisusaha->id }}" data-nama="{{ $jenisusaha->nama }}"> Edit</i>
                                                         </button>
 
-                                                        <form style="display: inline" method="POST" action="{{ route('jenisusaha.destroy', $jenisusaha->id) }}">
+                                                        <form style="display: inline" method="POST" action="{{ route('jenisUsaha.destroy', $jenisusaha->id) }}">
                                                             {{ csrf_field() }}
                                                             {{ method_field('DELETE') }}
                                                             <button type="button" onclick="hapus(this)" class="btn btn-danger btn-sm" value="Delete user"><i class="fa fa-trash"></i> Delete</button>
@@ -136,7 +136,7 @@ div.dt-buttons {
 
     function tambahJenisUsaha(){
         $("#modalJenisUsahaLabel").html('Tambah Jenis Usaha');
-        $("#formJenisUsaha").attr('action', "{{ route('jenisusaha.store') }}")
+        $("#formJenisUsaha").attr('action', "{{ route('jenisUsaha.store') }}")
         $(".methodEdit").remove();
         $("#nama").val('');
         $("#nama").prop('required',true);

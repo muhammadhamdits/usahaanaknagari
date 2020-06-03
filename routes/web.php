@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    $judul = "Dashboard";
+    return view('dashboard', compact('judul'));
 })->name('home');
 
 Auth::routes();
@@ -25,7 +26,7 @@ Route::get('/logout', function(){
 
 // Route for jenisusaha 
 
-Route::resource('jenisusaha', 'JenisUsahaController');
+Route::resource('jenisUsaha', 'JenisUsahaController');
 
 // Route::get('jenisusaha', 'JenisUsahaController@index')->name('admin.jenisusaha.index');
 // Route::get('jenisusaha/create', 'JenisUsahaController@create')->name('admin.jenisusaha.create');
@@ -35,11 +36,12 @@ Route::resource('jenisusaha', 'JenisUsahaController');
 // Route::delete('jenisusaha/{id}', 'JenisUsahaController@destroy')->name('admin.jenisusaha.destroy');
 
 // Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('owners', 'OwnerController');
+Route::resource('pemilik', 'OwnerController');
 Route::resource('usaha', 'UsahaController');
 
 // Route Profile
 Route::get('/profile', 'ProfileController@show')->name('owner.profile.show');
+Route::get('/profile', 'ProfileController@show')->name('profile.index');
 Route::get('/profile/{id}/edit', 'ProfileController@edit')->name('owner.profile.edit');
 Route::put('/profile/{id}', 'ProfileController@update');
 

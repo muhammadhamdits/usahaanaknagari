@@ -50,11 +50,11 @@ div.dt-buttons {
                                     {{ $user->username }}
                                 </td>
                                 <td class="text-center">
-                                    <form action="{{ route('owners.destroy', $user->id) }}" method="post">
+                                    <form action="{{ route('pemilik.destroy', $user->id) }}" method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
-                                        <a href="{{ route('owners.show', [$user->id]) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i> Detail</a>
-                                        <a href="{{ route('owners.edit', [$user->id]) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Edit</a>
+                                        <a href="{{ route('pemilik.show', [$user->id]) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i> Detail</a>
+                                        <a href="{{ route('pemilik.edit', [$user->id]) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Edit</a>
                                         <button class="btn btn-sm btn-danger" type="button" onclick="hapus(this)"><i class="fas fa-trash"></i> Delete</button>
                                     </form>
                                 </td>
@@ -81,7 +81,7 @@ div.dt-buttons {
             {
                 text: "<i class='fas fa-plus mr-2'></i>Tambah Data",
                 action: function ( e, dt, node, config ) {
-                    window.open("{{ route('owners.create') }}", "_self");
+                    window.open("{{ route('pemilik.create') }}", "_self");
                 },
                 className: 'btn-outline-primary mb-4 mt-2',
                 init: function(api, node, config) {

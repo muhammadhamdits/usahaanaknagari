@@ -16,13 +16,15 @@ class UsahaController extends Controller
     public function index()
     {
         $usahas = Usaha::all();
-        return view('admin.usaha.index', compact('usahas'));
+        $judul = "Kelola Data Usaha";
+        return view('admin.usaha.index', compact('usahas', 'judul'));
     }
 
     public function create()
     {
         $jenisUsahas = DB::table('jenis_usaha')->get()->keyBy('id')->pluck('nama');
-        return view('admin.usaha.create', compact('jenisUsahas'));
+        $judul = "Tambah Data Usaha";
+        return view('admin.usaha.create', compact('jenisUsahas', 'judul'));
     }
 
     public function store(Request $request)
@@ -64,16 +66,18 @@ class UsahaController extends Controller
     public function show($id)
     {
         $usaha = Usaha::findOrFail($id);
+        $judul = "Detail Data Usaha";
         $latlng = explode(" ", substr(Usaha::select(DB::raw("ST_AsText(geom) AS latlng"))->where('id', $id)->first()->latlng, 6, -1));
-        return view('admin.usaha.show', compact('usaha', 'latlng'));
+        return view('admin.usaha.show', compact('usaha', 'latlng', 'judul'));
     }
     
     public function edit($id)
     {
         $usaha = Usaha::findOrFail($id);
+        $judul = "Edit Data Usaha";
         $latlng = explode(" ", substr(Usaha::select(DB::raw("ST_AsText(geom) AS latlng"))->where('id', $id)->first()->latlng, 6, -1));
         $jenisUsahas = DB::table('jenis_usaha')->get()->keyBy('id')->pluck('nama');
-        return view('admin.usaha.edit', compact('usaha', 'latlng', 'jenisUsahas'));
+        return view('admin.usaha.edit', compact('usaha', 'latlng', 'jenisUsahas', 'judul'));
     }
 
     public function update(Request $request, $id)

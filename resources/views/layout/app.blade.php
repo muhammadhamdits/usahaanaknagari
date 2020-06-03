@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Usaha Anak Nagari</title>
+    <title>{{ $judul }} | Usaha Anak Nagari</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -165,7 +165,7 @@
                         @if(Auth::guard('admin')->check())
                         <!-- Pemilik -->
                         <li class="nav-item has-treeview">
-                            <a href="{{ route('owners.index') }}" class="nav-link @if(Request::segment(1) == 'owners') active @endif">
+                            <a href="{{ route('pemilik.index') }}" class="nav-link @if(Request::segment(1) == 'pemilik') active @endif">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Pemilik
@@ -176,7 +176,7 @@
 
                         <!-- Jenis Usaha -->
                         <li class="nav-item has-treeview">
-                            <a href="{{ route('jenisusaha.index') }}" class="nav-link @if(Request::segment(1) == 'jenisusaha') active @endif">
+                            <a href="{{ route('jenisUsaha.index') }}" class="nav-link @if(Request::segment(1) == 'jenisusaha') active @endif">
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
                                     Jenis Usaha
@@ -254,12 +254,27 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Dashboard</h1>
+                            <h1 class="m-0 text-dark">{{$judul}}</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard v1</li>
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+
+                                @if(Request::segment(1) == null)
+                                    <li class="breadcrumb-item">Dashboard</li>
+                                @elseif(Auth::guard('web')->check() || Auth::guard('admin')->check())
+                                    <li class="breadcrumb-item"><a href="{{ route(Request::segment(1).'.index') }}">{{ ucwords(preg_replace('%([a-z])([A-Z])%', '\1 \2', Request::segment(1))) }}</a></li>
+                                @else
+                                    <li class="breadcrumb-item"><a href="{{ route(Request::segment(1)) }}">{{ ucwords(preg_replace('%([a-z])([A-Z])%', '\1 \2', Request::segment(1))) }}</a></li>
+                                @endif
+
+                                @if(Request::segment(2) == 'create')
+                                    <li class="breadcrumb-item">{{ ucwords(preg_replace('%([a-z])([A-Z])%', '\1 \2',    Request::segment(2))) }}</li>
+                                @elseif(Request::segment(2) && !Request::segment(3))
+                                    <li class="breadcrumb-item">Detail</li>
+                                @elseif(Request::segment(3))
+                                    <li class="breadcrumb-item">{{ ucwords(preg_replace('%([a-z])([A-Z])%', '\1 \2', Request::segment(3))) }}</li>
+                                @endif
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->

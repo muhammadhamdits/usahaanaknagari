@@ -15,7 +15,7 @@ class JenisUsahaController extends Controller
     public function index()
     {
         $jenisusahas = JenisUsaha::all();
-        return view('admin/jenisusaha/index', ['jenisusahas' => $jenisusahas]);
+        return view('admin/jenisusaha/index', ['jenisusahas' => $jenisusahas, 'judul' => "Kelola Data Jenis Usaha"]);
     }
 
     public function create()
@@ -30,7 +30,7 @@ class JenisUsahaController extends Controller
         ]);
         $jenisusahas->save();
         toastr()->success('Data '.$jenisusahas->nama.' berhasil ditambahkan');
-        return redirect(route('jenisusaha.index'));
+        return redirect(route('jenisUsaha.index'));
     }
 
     public function show(JenisUsaha $jenisusaha)
@@ -49,7 +49,7 @@ class JenisUsahaController extends Controller
         $jenisusaha->nama = $request->nama;
         $jenisusaha->update();
         toastr()->success('Data '.$jenisusaha->nama.' berhasil diedit');
-        return redirect(route('jenisusaha.index'));
+        return redirect(route('jenisUsaha.index'));
     }
 
     public function destroy($id)
@@ -57,6 +57,6 @@ class JenisUsahaController extends Controller
         $jenisusaha = JenisUsaha::findOrFail($id);
         $jenisusaha->delete();
         toastr()->success('Data '.$jenisusaha->nama.' berhasil dihapus');
-        return redirect()->route('jenisusaha.index');
+        return redirect()->route('jenisUsaha.index');
     }
 }

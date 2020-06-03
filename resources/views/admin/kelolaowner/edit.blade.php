@@ -5,7 +5,7 @@
     <div class="card col-10">
         <div class="card-body">
             @foreach($user as $users)
-            <form action="{{ route('owners.update', $users->id) }}" method="post" class="mt-3 mb-3">
+            <form action="{{ route('pemilik.update', $users->id) }}" method="post" class="mt-3 mb-3">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                 {!! formInputRow('Nama Lengkap', 'text', 'nama', 'nama lengkap', '', $users->nama, $errors->first('nama')) !!}
@@ -23,7 +23,7 @@
                 <div class="row justify-content-center mt-4">
                     <div class="col-2"></div>
                     <div class="col-8">
-                        <a href="{{ url('/owners') }}" class="btn btn-warning float-left"><i class="fas fa-arrow-left"></i> Kembali</a>
+                        <a href="{{ url('/pemilik') }}" class="btn btn-warning float-left"><i class="fas fa-arrow-left"></i> Kembali</a>
                         <button type="reset" class="btn btn-secondary float-right"><i class="fas fa-undo"></i> Reset</button>
                         <button type="submit" class="btn btn-primary float-right mr-2"><i class="fas fa-save"></i> Update</button>
                     </div>
