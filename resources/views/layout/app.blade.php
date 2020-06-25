@@ -140,6 +140,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
+                        @if(Auth::guard('web')->check() || Auth::guard('admin')->check())
                         <!-- Dashboard -->
                         <li class="nav-item">
                             <a href="{{ url('/') }}" class="nav-link @if(Request::segment(1) == null) active @endif">
@@ -149,7 +150,6 @@
                                 </p>
                             </a>
                         </li>
-                        @if(Auth::guard('web')->check() || Auth::guard('admin')->check())
                         <!-- Usaha -->
                         <li class="nav-item">
                             <a href="{{ route('usaha.index') }}" class="nav-link @if(Request::segment(1) == 'usaha') active @endif">
@@ -234,6 +234,17 @@
                                     <option>Toko Kelontong</option>
                                 </select>
                             </div>
+                        </li>
+                        @endif
+
+                        @if(!Auth::guard('web')->check() && !Auth::guard('admin')->check())
+                        <li class="nav-item">
+                            <a href="{{ route('usulanUsaha') }}" class="nav-link @if(Request::segment(1) == 'usulanUsaha') active @endif">
+                                <i class="nav-icon fas fa-upload"></i>
+                                <p>
+                                    Usulkan Data Usaha
+                                </p>
+                            </a>
                         </li>
                         @endif
                     </ul>
@@ -354,6 +365,7 @@
         })
 
         // Range Slider
+        @if(Request::segment(1) == null)
         var slider = document.getElementById("regionRange");
         var output = document.getElementById("value");
         output.innerHTML = slider.value; // Display the default slider value
@@ -362,6 +374,7 @@
         slider.oninput = function() {
             output.innerHTML = this.value;
         }
+        @endif
 
     </script>
 </body>

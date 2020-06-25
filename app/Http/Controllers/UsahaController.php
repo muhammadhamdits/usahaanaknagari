@@ -127,4 +127,12 @@ class UsahaController extends Controller
         $usaha->delete();
         return redirect(route('usaha.index'));
     }
+
+    public function confirm(Request $request){
+        $usaha =  Usaha::findOrFail($request->id);
+        $usaha->update(['status' => $request->status]);
+
+        toastr()->success("Berhasil mengkonfirmasi usulan usaha $usaha->nama");
+        return redirect(route('usaha.index'));
+    }
 }

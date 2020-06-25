@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    $judul = "Dashboard";
-    return view('dashboard', compact('judul'));
-})->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
@@ -45,3 +42,8 @@ Route::get('/profile', 'ProfileController@show')->name('profile.index');
 Route::get('/profile/{id}/edit', 'ProfileController@edit')->name('owner.profile.edit');
 Route::put('/profile/{id}', 'ProfileController@update');
 
+Route::get('/usulanUsaha', 'HomeController@create')->name('usulanUsaha');
+Route::post('/usulanUsaha', 'HomeController@store')->name('usulanUsaha.store');
+Route::get('/json/usaha', 'HomeController@usahaJson')->name('usaha.json');
+Route::post('/usulanUsaha/confirm', 'UsahaController@confirm')->name('usulanUsaha.confirm');
+Route::post('/usulanPemilik/confirm', 'OwnerController@confirm')->name('usulanPemilik.confirm');

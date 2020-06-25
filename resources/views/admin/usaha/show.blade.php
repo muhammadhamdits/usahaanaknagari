@@ -43,6 +43,14 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
+                    @if($usaha->status == 0)
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="pengusul">Pengusul</label>
+                            <p class="ml-3">{{ $usaha->pengusul }}</p>
+                        </div>
+                    </div>
+                    @endif
                     <div class="row">
                         <div class="col-12">
                             <label for="nama">Nama Usaha</label>

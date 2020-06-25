@@ -12,7 +12,7 @@ class OwnerController extends Controller
 {
     public function index()
     {
-        $users = User::where('status', 1)->get();
+        $users = User::all();
         $judul = "Kelola Data Pemilik";
         return view('admin.kelolaowner.index', compact('users', 'judul'));
     }
@@ -75,5 +75,13 @@ class OwnerController extends Controller
         toastr()->success('Data '.$user->username.' berhasil dihapus');
         $user->delete();
         return redirect()->route('pemilik.index');
+    }
+    
+    public function confirm(Request $request){
+        $user =  User::findOrFail($request->id);
+        $user->update(['status' => $request->status]);
+
+        toastr()->success("Berhasil mengkonfirmasi usulan pemilik dengan nama $user->nama");
+        return redirect(route('pemilik.index'));
     }
 }

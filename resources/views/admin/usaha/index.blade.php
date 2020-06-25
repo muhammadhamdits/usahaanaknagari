@@ -45,9 +45,11 @@ div.dt-buttons {
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $i = 1; ?>
                         @foreach($usahas as $usaha)
+                        @if($usaha->status == 1)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $i++ }}</td>
                                 <td>{{ $usaha->nama }}</td>
                                 <td>{{ $usaha->jenis->nama }}</td>
                                 <td class="text-center">
@@ -60,14 +62,60 @@ div.dt-buttons {
                                     </form>
                                 </td>
                             </tr>
+                        @endif
                         @endforeach
                     </tbody>
                     <tfoot></tfoot>
                 </table>
             </div>
             <div class="tab-pane fade" id="custom-tabs-four-usulanUsaha" role="tabpanel" aria-labelledby="custom-tabs-four-usulanUsaha-tab">
+                <table class="table table-outline table-hover" id="tabelUsulanUsaha">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Usaha</th>
+                            <th>Jenis Usaha</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1; ?>
+                        @foreach($usahas as $usaha)
+                        @if($usaha->status == 0)
+                            <tr>
+                                <td>{{ $i++ }}</td>
+                                <td>{{ $usaha->nama }}</td>
+                                <td>{{ $usaha->jenis->nama }}</td>
+                                <td class="text-center">
+                                    <form action="{{ route('usulanUsaha.confirm') }}" method="post">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="id" value="{{ $usaha->id }}">
+                                        <input type="hidden" name="status" id="status-{{ $usaha->id }}">
+                                        <a href="{{ route('usaha.show', [$usaha->id]) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i> Detail</a>
+                                        <button class="btn btn-sm btn-success" type="button" onclick="konfirm(this)" data-id="{{ $usaha->id }}"><i class="fas fa-check"></i> Konfirmasi</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endif
+                        @endforeach
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
             </div>
             <div class="tab-pane fade" id="custom-tabs-four-usulanUpdateUsaha" role="tabpanel" aria-labelledby="custom-tabs-four-usulanUpdateUsaha-tab">
+                <table class="table table-outline table-hover" id="tabelUsulanUpdate">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Usaha</th>
+                            <th>Jenis Usaha</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
             </div>
         </div>
     </div>
@@ -85,6 +133,36 @@ div.dt-buttons {
                     window.open("{{ route('usaha.create') }}", "_self");
                 },
                 className: 'btn-outline-primary mb-4 mt-2',
+                init: function(api, node, config) {
+                    $(node).removeClass('btn-secondary')
+                }
+            }
+        ]
+    });
+    $("#tabelUsulanUsaha").DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: "<i class='fas fa-plus mr-2'></i>Tambah Data",
+                action: function ( e, dt, node, config ) {
+                    window.open("{{ route('usaha.create') }}", "_self");
+                },
+                className: 'btn-outline-primary mb-4 mt-2 invisible',
+                init: function(api, node, config) {
+                    $(node).removeClass('btn-secondary')
+                }
+            }
+        ]
+    });
+    $("#tabelUsulanUpdate").DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: "<i class='fas fa-plus mr-2'></i>Tambah Data",
+                action: function ( e, dt, node, config ) {
+                    window.open("{{ route('usaha.create') }}", "_self");
+                },
+                className: 'btn-outline-primary mb-4 mt-2 invisible',
                 init: function(api, node, config) {
                     $(node).removeClass('btn-secondary')
                 }
@@ -130,5 +208,41 @@ div.dt-buttons {
             }
         })
     }
+
+    function konfirm(e){
+        let buttons = $('<div>')
+        .append(createButton('btn btn-primary ml-2 confirmYes', '<i class="fas fa-check"></i> Accept', 'data-id="'+ $(e).data('id') +'"'))
+        .append(createButton('btn btn-danger ml-2 confirmNo', '<i class="fas fa-times"></i> Reject', 'data-id="'+ $(e).data('id') +'"'))
+        .append(createButton('btn btn-secondary ml-2 confirmCancel', 'Cancel'));
+
+        Swal.fire({
+            title: "Konfirmasi Usulan Usaha",
+            html: buttons,
+            icon: 'question',
+            text: '',
+            showConfirmButton: false,
+            showCancelButton: false
+        })
+    }
+
+    function createButton(kelas, text, data='') {
+        return $('<button class="'+kelas+'" '+data+'>' + text + '</button>');
+    }
+
+    $(document).on('click', '.confirmYes', function(){
+        let id = $(this).data('id');
+        $("#status-"+id).val(1);
+        $("#status-"+id).parent().submit();
+    });
+
+    $(document).on('click', '.confirmNo', function(){
+        let id = $(this).data('id');
+        $("#status-"+id).val(2);
+        $("#status-"+id).parent().submit();
+    });
+
+    $(document).on('click', '.confirmCancel', function(){
+        swal.close();
+    })
 </script>
 @endsection

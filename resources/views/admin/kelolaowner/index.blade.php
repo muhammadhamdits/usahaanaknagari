@@ -41,10 +41,12 @@ div.dt-buttons {
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $i = 1; ?>
                         @foreach($users as $user)
+                        @if($user->status == 1)
                             <tr>
                                 <td>
-                                    {{ $loop->iteration }}
+                                    {{ $i++ }}
                                 </td>
                                 <td>
                                     {{ $user->username }}
@@ -59,12 +61,47 @@ div.dt-buttons {
                                     </form>
                                 </td>
                             </tr>
+                        @endif
                         @endforeach
                     </tbody>
                     <tfoot></tfoot>
                 </table>
             </div>
             <div class="tab-pane fade" id="custom-tabs-four-usulanPemilik" role="tabpanel" aria-labelledby="custom-tabs-four-usulanPemilik-tab">
+                <table class="table table-outline table-hover" id="tabelUsulanPemilik">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>No</th>
+                            <th>Username</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1; ?>
+                        @foreach($users as $user)
+                        @if($user->status == 0)
+                            <tr>
+                                <td>
+                                    {{ $i++ }}
+                                </td>
+                                <td>
+                                    {{ $user->username }}
+                                </td>
+                                <td class="text-center">
+                                    <form action="{{ route('usulanPemilik.confirm') }}" method="post">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="id" value="{{ $user->id }}">
+                                        <input type="hidden" name="status" id="status-{{ $user->id }}">
+                                        <a href="{{ route('pemilik.show', [$user->id]) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i> Detail</a>
+                                        <button class="btn btn-sm btn-success" type="button" onclick="konfirm(this)" data-id="{{ $user->id }}"><i class="fas fa-check"></i> Konfirmasi</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endif
+                        @endforeach
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
             </div>
         </div>
     </div>
@@ -84,6 +121,21 @@ div.dt-buttons {
                     window.open("{{ route('pemilik.create') }}", "_self");
                 },
                 className: 'btn-outline-primary mb-4 mt-2',
+                init: function(api, node, config) {
+                    $(node).removeClass('btn-secondary')
+                }
+            }
+        ]
+    });
+    $("#tabelUsulanPemilik").DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: "<i class='fas fa-plus mr-2'></i>Tambah Data",
+                action: function ( e, dt, node, config ) {
+                    window.open("{{ route('pemilik.create') }}", "_self");
+                },
+                className: 'btn-outline-primary mb-4 mt-2 invisible',
                 init: function(api, node, config) {
                     $(node).removeClass('btn-secondary')
                 }
@@ -129,5 +181,41 @@ div.dt-buttons {
             }
         })
     }
+
+    function konfirm(e){
+        let buttons = $('<div>')
+        .append(createButton('btn btn-primary ml-2 confirmYes', '<i class="fas fa-check"></i> Accept', 'data-id="'+ $(e).data('id') +'"'))
+        .append(createButton('btn btn-danger ml-2 confirmNo', '<i class="fas fa-times"></i> Reject', 'data-id="'+ $(e).data('id') +'"'))
+        .append(createButton('btn btn-secondary ml-2 confirmCancel', 'Cancel'));
+
+        Swal.fire({
+            title: "Konfirmasi Usulan Pemilik",
+            html: buttons,
+            icon: 'question',
+            text: '',
+            showConfirmButton: false,
+            showCancelButton: false
+        })
+    }
+
+    function createButton(kelas, text, data='') {
+        return $('<button class="'+kelas+'" '+data+'>' + text + '</button>');
+    }
+
+    $(document).on('click', '.confirmYes', function(){
+        let id = $(this).data('id');
+        $("#status-"+id).val(1);
+        $("#status-"+id).parent().submit();
+    });
+
+    $(document).on('click', '.confirmNo', function(){
+        let id = $(this).data('id');
+        $("#status-"+id).val(2);
+        $("#status-"+id).parent().submit();
+    });
+
+    $(document).on('click', '.confirmCancel', function(){
+        swal.close();
+    })
 </script>
 @endsection
