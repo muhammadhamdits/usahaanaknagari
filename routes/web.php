@@ -46,7 +46,7 @@ Route::get('/usulanUsaha', 'HomeController@create')->name('usulanUsaha');
 Route::post('/usulanUsaha', 'HomeController@store')->name('usulanUsaha.store');
 Route::get('/usaha/{id}/usulan', 'UsahaController@detail')->name('usulanUsaha.detail');
 Route::get('/usulanUsaha/{id}/edit', 'UsahaController@ubah')->name('usulanUsaha.ubah');
-Route::post('/usulanUsaha/{id}', 'UsahaController@perbarui')->name('usulanUsaha.perbarui');
+Route::post('/usulanUsaha/{id}/update', 'UsahaController@perbarui')->name('usulanUsaha.perbarui');
 
 Route::get('/json/usaha', 'HomeController@usahaJson')->name('usaha.json');
 

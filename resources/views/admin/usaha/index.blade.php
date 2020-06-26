@@ -92,7 +92,7 @@ div.dt-buttons {
                                         <input type="hidden" name="id" value="{{ $usaha->id }}">
                                         <input type="hidden" name="status" id="status-{{ $usaha->id }}">
                                         <a href="{{ route('usaha.show', [$usaha->id]) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i> Detail</a>
-                                        <button class="btn btn-sm btn-success" type="button" onclick="konfirm(this)" data-id="{{ $usaha->id }}"><i class="fas fa-check"></i> Konfirmasi</button>
+                                        <button class="btn btn-sm btn-success" type="button" onclick="konfirm(this)" data-id="{{ $usaha->id }}" data-jenis="1"><i class="fas fa-check"></i> Konfirmasi</button>
                                     </form>
                                 </td>
                             </tr>
@@ -254,8 +254,9 @@ div.dt-buttons {
             $("#statusU-"+id).val(1);
             $("#statusU-"+id).parent().submit();
         }else{
-            $("#statusU-"+id).val(1);
-            $("#statusU-"+id).parent().submit();
+            console.log('ini');
+            $("#status-"+id).val(1);
+            $("#status-"+id).parent().submit();
         }
     });
 
