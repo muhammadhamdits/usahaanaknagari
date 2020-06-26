@@ -138,7 +138,7 @@
                     </div>
                     {!! formInputCol('Latitude', 'number', 'latitude', 'latitude', 'required', old('latitude'), $errors->first('latitude'), 'Longitude', 'number', 'longitude', 'longitude', 'required', old('longitude'), $errors->first('longitude'), 6, "step=0.00000000000000001", "step=0.00000000000000001") !!}
                     <div id="map" style="height: 322px;" class="mb-4"></div>
-                    {!! formText('Keterangan Tambahan', 'ket', 'required', old('ket'), $errors->first('ket'), 12) !!}
+                    {!! formText('Keterangan Tambahan', 'ket', '', old('ket'), $errors->first('ket'), 12) !!}
                     <div class="row justify-content-center mt-4">
                         <div class="col-12">
                             <a href="{{ url('/usaha') }}" class="btn btn-warning float-left"><i class="fas fa-arrow-left"></i> Kembali</a>

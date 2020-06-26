@@ -79,16 +79,28 @@
 @endsection
 
 @section('content')
+@if(!Auth::guard('web')->check() || !Auth::guard('admin')->check())
+<form action="{{ route('usulanUsaha.perbarui', $usaha->id) }}" method="post" enctype="multipart/form-data">
+@else
 <form action="{{ route('usaha.update', $usaha->id) }}" method="post" enctype="multipart/form-data">
+@endif
     <div class="row">
         @csrf
+        @if(Auth::guard('web')->check() || Auth::guard('admin')->check())
         @method('PUT')
+        @endif
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
+                    @if(!Auth::guard('web')->check() || !Auth::guard('admin')->check())
+                    {!! formInputRow('Pengusul*', 'text', 'pengusul', 'nama pengusul', 'required', '', $errors->first('pengusul'), 12) !!}
+                    @endif
+
                     {!! formInputRow('Nama Usaha*', 'text', 'nama', 'nama usaha', 'required', $usaha->nama, $errors->first('nama'), 12) !!}
                     {!! formSelect('Jenis Usaha*', 'jenis_usaha_id', $jenisUsahas, $usaha->jenis_usaha_id) !!}
+                    @if(Auth::guard('web')->check() || Auth::guard('admin')->check())
                     {!! formInputRow('Nama Pemilik', 'text', 'pemilik', 'nama pemilik', '', $usaha->pemilik, $errors->first('pemilik'), 12) !!}
+                    @endif
                     {!! formInputRow('No. HP', 'text', 'hp', 'No. HP', '', $usaha->hp, $errors->first('hp'), 12) !!}
                     {!! formInputCol('Jam Buka', 'time', 'jam_buka', '', '', $usaha->jam_buka, $errors->first('jam_buka'), 'Jam Tutup', 'time', 'jam_tutup', '', '', $usaha->jam_tutup, $errors->first('jam_tutup'), 6) !!}
                     {!! formInputRow('Barang/Jasa tersedia*', 'text', 'barang_jasa', 'Barang/Jasa', 'required', $usaha->barang_jasa, $errors->first('barang_jasa'), 12) !!}
@@ -119,7 +131,7 @@
                     </div>
                     {!! formInputCol('Latitude', 'number', 'latitude', 'latitude', 'required', $latlng[1], $errors->first('latitude'), 'Longitude', 'number', 'longitude', 'longitude', 'required', $latlng[0], $errors->first('longitude'), 6, "step=0.00000000000000001", "step=0.00000000000000001") !!}
                     <div id="map" style="height: 322px;" class="mb-4"></div>
-                    {!! formText('Keterangan Tambahan', 'ket', 'required', $usaha->ket, $errors->first('ket'), 12) !!}
+                    {!! formText('Keterangan Tambahan', 'ket', '', $usaha->ket, $errors->first('ket'), 12) !!}
                     <div class="row justify-content-center mt-4">
                         <div class="col-12">
                             <a href="{{ url('/usaha') }}" class="btn btn-warning float-left"><i class="fas fa-arrow-left"></i> Kembali</a>

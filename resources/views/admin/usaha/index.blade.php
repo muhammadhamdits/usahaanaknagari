@@ -113,6 +113,25 @@ div.dt-buttons {
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $i = 1; ?>
+                        @foreach($updates as $usaha)
+                        @if($usaha->status == 0)
+                            <tr>
+                                <td>{{ $i++ }}</td>
+                                <td>{{ $usaha->nama }}</td>
+                                <td>{{ $usaha->jenis->nama }}</td>
+                                <td class="text-center">
+                                    <form action="{{ route('usulanUsaha.konfirm') }}" method="post">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="id" value="{{ $usaha->id }}">
+                                        <input type="hidden" name="status" id="statusU-{{ $usaha->id }}">
+                                        <a href="{{ route('usulanUsaha.detail', [$usaha->id]) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i> Detail</a>
+                                        <button class="btn btn-sm btn-success" type="button" onclick="konfirm(this)" data-id="{{ $usaha->id }}" data-jenis="0"><i class="fas fa-check"></i> Konfirmasi</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endif
+                        @endforeach
                     </tbody>
                     <tfoot></tfoot>
                 </table>
@@ -231,14 +250,24 @@ div.dt-buttons {
 
     $(document).on('click', '.confirmYes', function(){
         let id = $(this).data('id');
-        $("#status-"+id).val(1);
-        $("#status-"+id).parent().submit();
+        if($(this).data('jenis') == 0){
+            $("#statusU-"+id).val(1);
+            $("#statusU-"+id).parent().submit();
+        }else{
+            $("#statusU-"+id).val(1);
+            $("#statusU-"+id).parent().submit();
+        }
     });
 
     $(document).on('click', '.confirmNo', function(){
         let id = $(this).data('id');
-        $("#status-"+id).val(2);
-        $("#status-"+id).parent().submit();
+        if($(this).data('jenis') == 0){
+            $("#statusU-"+id).val(2);
+            $("#statusU-"+id).parent().submit();
+        }else{
+            $("#status-"+id).val(2);
+            $("#status-"+id).parent().submit();
+        }
     });
 
     $(document).on('click', '.confirmCancel', function(){

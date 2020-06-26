@@ -42,65 +42,51 @@
         @csrf
         <div class="col-md-6">
             <div class="card">
-                <div class="card-body">
-                    @if($usaha->status == 0)
+                <div class="card-body mb-4">
                     <div class="row">
                         <div class="col-12">
                             <label for="pengusul">Pengusul</label>
                             <p class="ml-3">{{ $usaha->pengusul }}</p>
                         </div>
                     </div>
-                    @endif
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 @if($usaha->nama[1] == 1) text-danger @endif">
                             <label for="nama">Nama Usaha</label>
-                            <p class="ml-3">{{ $usaha->nama }}</p>
+                            <p class="ml-3">{{ $usaha->nama[0] }}</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 @if($usaha->jenis_usaha_id[1] == 1) text-danger @endif">
                             <label for="jenis">Jeis Usaha</label>
-                            <p class="ml-3">{{ $usaha->jenis->nama }}</p>
+                            <p class="ml-3">{{ $usaha->jenis_usaha_id[0] }}</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
-                            <label for="pemilik">Pemilik Usaha</label>
-                            <p class="ml-3">{{ $usaha->pemilik }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="hp">No. HP</label>
-                            <p class="ml-3">{{ $usaha->hp }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
+                        <div class="col-6 @if($usaha->jam_buka[1] == 1) text-danger @endif">
                             <label for="jam_buka">Jam Buka</label>
-                            <p class="ml-3">{{ $usaha->jam_buka }}</p>
+                            <p class="ml-3">{{ $usaha->jam_buka[0] }}</p>
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 @if($usaha->jam_tutup[1] == 1) text-danger @endif">
                             <label for="jam_tutup">Jam Tutup</label>
-                            <p class="ml-3">{{ $usaha->jam_tutup }}</p>
+                            <p class="ml-3">{{ $usaha->jam_tutup[0] }}</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 @if($usaha->barang_jasa[1] == 1) text-danger @endif">
                             <label for="barang_jasa">Barang/Jasa tersedia</label>
-                            <p class="ml-3">{{ $usaha->barang_jasa }}</p>
+                            <p class="ml-3">{{ $usaha->barang_jasa[0] }}</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 @if($usaha->alamat[1] == 1) text-danger @endif">
                             <label for="alamat">Alamat Usaha</label>
-                            <p class="ml-3">{{ $usaha->alamat }}</p>
+                            <p class="ml-3">{{ $usaha->alamat[0] }}</p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
+                    <div class="row mb-4">
+                        <div class="col-12 @if($usaha->ket[1] == 1) text-danger @endif">
                             <label for="ket">Keterangan Tambahan</label>
-                            <p class="ml-3">{{ $usaha->ket }}</p>
+                            <p class="ml-3">{{ $usaha->ket[0] }}</p>
                         </div>
                     </div>
                 </div>
@@ -110,14 +96,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 @if($usaha->foto[1] == 1) text-danger @endif">
                             <label for="foto">Dokumentasi:</label>
                             <div class="text-center">
-                                <img src="{{ url($usaha->foto) }}" alt="" height="120">
+                                <img src="{{ url($usaha->foto[0]) }}" alt="" height="120">
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-3">
+                    <div class="row mt-3 @if($usaha->geom[1] == 1) text-danger @endif">
                         <div class="col-6">
                             <label for="latitude">Latitude</label>
                             <p class="ml-3">{{ $latlng[1] }}</p>
@@ -130,12 +116,7 @@
                     <div id="map" style="height: 250px;" class="mb-4"></div>
                     <div class="row justify-content-center mt-4">
                         <div class="col-12">
-                            @if(!Auth::guard('web')->check() && !Auth::guard('admin')->check())
-                            <a href="{{ url('/') }}" class="btn btn-warning float-left"><i class="fas fa-arrow-left"></i> Kembali</a>
-                            <a href="{{ route('usulanUsaha.ubah', [$usaha->id]) }}" class="btn btn-primary float-right"><i class="fas fa-edit"></i> Sarankan Pengeditan</a>
-                            @else
                             <a href="{{ url('/usaha') }}" class="btn btn-warning float-left"><i class="fas fa-arrow-left"></i> Kembali</a>
-                            @endif
                         </div>
                     </div>
                 </div>

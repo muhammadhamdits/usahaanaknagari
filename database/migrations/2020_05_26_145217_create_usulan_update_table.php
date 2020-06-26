@@ -14,8 +14,9 @@ class CreateUsulanUpdateTable extends Migration
     public function up()
     {
         Schema::create('usulan_update', function (Blueprint $table) {
-            $table->UnsignedBigInteger('id');
+            $table->bigIncrements('id');
             $table->UnsignedBigInteger('usaha_id');
+            $table->UnsignedBigInteger('jenis_usaha_id');
             $table->string('nama')->nullable();
             $table->time('jam_buka')->nullable();
             $table->time('jam_tutup')->nullable();
@@ -28,8 +29,8 @@ class CreateUsulanUpdateTable extends Migration
             $table->string('pengusul');
             $table->timestamps();
 
-            $table->primary('id');
             $table->foreign('usaha_id')->references('id')->on('usaha');
+            $table->foreign('jenis_usaha_id')->references('id')->on('jenis_usaha');
         });
     }
 

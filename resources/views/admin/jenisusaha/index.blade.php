@@ -148,7 +148,7 @@ div.dt-buttons {
         let id = $(e.target).data('id');
         let nama = $(e.target).data('nama');
         $("#modalJenisUsahaLabel").html('Edit '+nama);
-        $("#formJenisUsaha").attr('action', "/jenisusaha/"+id);
+        $("#formJenisUsaha").attr('action', "/jenisUsaha/"+id);
         $("#formJenisUsaha").prepend("<input type='hidden' name='_method' value='PUT' class='methodEdit'>");
         $("#nama").val(nama);
         $("#id_edit").val(id);

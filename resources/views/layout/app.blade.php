@@ -276,7 +276,7 @@
                                 @elseif(Auth::guard('web')->check() || Auth::guard('admin')->check())
                                     <li class="breadcrumb-item"><a href="{{ route(Request::segment(1).'.index') }}">{{ ucwords(preg_replace('%([a-z])([A-Z])%', '\1 \2', Request::segment(1))) }}</a></li>
                                 @else
-                                    <li class="breadcrumb-item"><a href="{{ route(Request::segment(1)) }}">{{ ucwords(preg_replace('%([a-z])([A-Z])%', '\1 \2', Request::segment(1))) }}</a></li>
+                                    <li class="breadcrumb-item"><a href="{{-- route(Request::segment(1)) --}}">{{ ucwords(preg_replace('%([a-z])([A-Z])%', '\1 \2', Request::segment(1))) }}</a></li>
                                 @endif
 
                                 @if(Request::segment(2) == 'create')

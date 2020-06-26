@@ -63,11 +63,12 @@ class HomeController extends Controller
     }
 
     public function usahaJson(){
-        $data = Usaha::all();
+        $data = Usaha::where('status', 1)->get();
         $output = [];
         foreach($data as $d){
             $latlng = explode(" ", substr(Usaha::select(DB::raw("ST_AsText(geom) AS latlng"))->where('id', $d->id)->first()->latlng, 6, -1));
             $output[] = [
+                'id' => $d->id,
                 'title' => $d->nama,
                 'lat' => $latlng[1],
                 'lng' => $latlng[0]
