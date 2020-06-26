@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Hash;
 
 class ProfileController extends Controller
 {
@@ -43,4 +44,31 @@ class ProfileController extends Controller
         return redirect('/profile');
     }
 
+    public function password(){
+        $judul = "Ubah Password";
+        return view('owner.profile.pass', compact('judul'));
+    }
+
+    public function changePass(Request $request){
+        $request->validate([
+            'password' => 'required|confirmed'
+        ]);
+
+        if(Auth::guard('admin')->check()){
+            $user = Auth::guard('admin')->user();
+        }else{
+            $user = Auth::guard('web')->user();
+        }
+
+        if(Hash::check($request->oldpass, $user->password)){
+            $user->fill([
+                'password' => Hash::make($request->password)
+            ])->save();
+
+            toastr()->success('Berhasil mengganti password');
+            return redirect(route('home'));
+        }
+        toastr()->error('Password lama tidak sesuai/salah');
+        return redirect()->back();
+    }
 }

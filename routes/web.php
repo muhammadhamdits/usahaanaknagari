@@ -41,6 +41,8 @@ Route::get('/profile', 'ProfileController@show')->name('owner.profile.show');
 Route::get('/profile', 'ProfileController@show')->name('profile.index');
 Route::get('/profile/{id}/edit', 'ProfileController@edit')->name('owner.profile.edit');
 Route::put('/profile/{id}', 'ProfileController@update');
+Route::get('/profile/password', 'ProfileController@password')->name('owner.profile.password');
+Route::post('/profile/password', 'ProfileController@changePass')->name('owner.profile.changePass');
 
 Route::get('/usulanUsaha', 'HomeController@create')->name('usulanUsaha');
 Route::post('/usulanUsaha', 'HomeController@store')->name('usulanUsaha.store');

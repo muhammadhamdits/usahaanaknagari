@@ -95,7 +95,7 @@
                             </div>
                             <!-- Message End -->
                         </a>
-                        <a href="#" class="text-dark">
+                        <a href="{{ route('owner.profile.password') }}" class="text-dark">
                             <p class="text-sm text-center">Ubah Password?</p>
                         </a>
                         <div class="dropdown-divider mt-2"></div>

@@ -6,19 +6,25 @@ use Illuminate\Http\Request;
 use App\Usaha;
 use App\UsulanUpdate;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class UsahaController extends Controller
 {
     public $data;
 
     public function __construct(){
-        $this->middleware('admin')->only(['index', 'create', 'store', 'edit', 'update', 'destroy', 'confirm']);
+        $this->middleware('admin')->only(['confirm']);
         $this->middleware('web')->only(['index', 'create', 'store', 'edit', 'update', 'destroy', 'confirm']);
     }
 
     public function index()
     {
-        $usahas = Usaha::all();
+        if(Auth::guard('admin')->check()){
+            $usahas = Usaha::all();
+        }else{
+            $id = Auth::user()->id;
+            $usahas = Usaha::where('user_id', $id);
+        }
         $updates = UsulanUpdate::all();
         $judul = "Kelola Data Usaha";
         return view('admin.usaha.index', compact('usahas', 'judul', 'updates'));

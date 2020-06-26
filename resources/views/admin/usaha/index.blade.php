@@ -24,12 +24,14 @@ div.dt-buttons {
             <li class="nav-item">
                 <a class="nav-link active" id="custom-tabs-four-dataUsaha-tab" data-toggle="pill" href="#custom-tabs-four-dataUsaha" role="tab" aria-controls="custom-tabs-four-dataUsaha" aria-selected="false">Data Usaha</a>
             </li>
+            @if(Auth::guard('admin')->check())
             <li class="nav-item">
                 <a class="nav-link" id="custom-tabs-four-usulanUsaha-tab" data-toggle="pill" href="#custom-tabs-four-usulanUsaha" role="tab" aria-controls="custom-tabs-four-usulanUsaha" aria-selected="true">Usulan Usaha</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="custom-tabs-four-usulanUpdateUsaha-tab" data-toggle="pill" href="#custom-tabs-four-usulanUpdateUsaha" role="tab" aria-controls="custom-tabs-four-usulanUpdateUsaha" aria-selected="true">Usulan Update Usaha</a>
             </li>
+            @endif
         </ul>
     </div>
     <div class="card-body">
@@ -68,6 +70,7 @@ div.dt-buttons {
                     <tfoot></tfoot>
                 </table>
             </div>
+            @if(Auth::guard('admin')->check())
             <div class="tab-pane fade" id="custom-tabs-four-usulanUsaha" role="tabpanel" aria-labelledby="custom-tabs-four-usulanUsaha-tab">
                 <table class="table table-outline table-hover" id="tabelUsulanUsaha">
                     <thead class="thead-light">
@@ -136,6 +139,7 @@ div.dt-buttons {
                     <tfoot></tfoot>
                 </table>
             </div>
+            @endif
         </div>
     </div>
 </div>
