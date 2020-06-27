@@ -76,4 +76,20 @@ class HomeController extends Controller
         }
         echo(json_encode($output));
     }
+
+    public function namaJson($data){
+        $s = '%'.strtolower($data).'%';
+        $result = Usaha::whereRaw('lower(nama) like (?)', ["{$s}"])->get();
+        $output = [];
+        foreach($result as $d){
+            $latlng = explode(" ", substr(Usaha::select(DB::raw("ST_AsText(geom) AS latlng"))->where('id', $d->id)->first()->latlng, 6, -1));
+            $output[] = [
+                'id' => $d->id,
+                'title' => $d->nama,
+                'lat' => $latlng[1],
+                'lng' => $latlng[0]
+            ];
+        }
+        echo(json_encode($output));
+    }
 }

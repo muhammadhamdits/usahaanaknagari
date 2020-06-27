@@ -68,8 +68,8 @@
 @endsection
 
 @section('content')
-<div class="row">
-    <section class="col-12 connectedSortable">
+<div class="row" id="kanvas">
+    <section class="col-12 connectedSortable" id="kiri">
         <div class="card">
             <div class="card-body">
                 <div id="map" style="height: 425px;"></div>
@@ -77,4 +77,45 @@
         </div>
     </section>
 </div>
+@endsection
+
+@section('js')
+<script>
+    $("#usaha").on('keyup', function(e){
+        let nama = $(this).val();
+        $("#kiri").attr('class', 'col-9 connectedSortable');
+
+        var kanan =
+        "<section class='col-3 connectedSortable' id='kanan'>"+
+            "<div class='card'>"+
+                "<div class='card-body' id='isiKanan' style='height: 465px'>";
+        $.getJSON("/json/nama/"+nama, function(data) {
+            $.each(data, function(key, data) {
+                kanan += 
+                "<li>"+
+                    "<a href='javascript:void(0);' onclick='mapAnimate("+data.lat+", "+data.lng+")'>"
+                        +data.title+
+                    "</a>"+
+                "</li>";
+            });
+                kanan +=
+                    "</div>"+
+                "</div>"+
+            "</section>";
+
+            if($("#kanvas").children().eq(1)){
+                $("#kanvas").children().eq(1).remove();
+            }
+            $("#kanvas").append(kanan);
+        });
+    });
+
+    function mapAnimate(lat, lng){
+        let pos = {
+            lat: lat,
+            lng: lng
+        };
+        map.setCenter(pos);
+    }
+</script>
 @endsection

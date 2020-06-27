@@ -51,6 +51,7 @@ Route::get('/usulanUsaha/{id}/edit', 'UsahaController@ubah')->name('usulanUsaha.
 Route::post('/usulanUsaha/{id}/update', 'UsahaController@perbarui')->name('usulanUsaha.perbarui');
 
 Route::get('/json/usaha', 'HomeController@usahaJson')->name('usaha.json');
+Route::get('/json/nama/{data}', 'HomeController@namaJson')->name('nama.json');
 
 Route::post('/usulanUsaha/confirm', 'UsahaController@confirm')->name('usulanUsaha.confirm');
 Route::post('/usulanUpdate/confirm', 'UsahaController@konfirmasiUsulan')->name('usulanUsaha.konfirm');
