@@ -227,11 +227,11 @@
                         <li class="nav-header">
                             <div class="form-group">
                                 <label for="">Search by Business Type</label><br>
-                                <select class="select2" style="width: 100%;">
+                                <select class="select2" style="width: 100%;" id="businessType">
                                     <option selected="selected" disabled>Choose Business Type</option>
-                                    <option>Makanan Atau Bahan Makanan</option>
-                                    <option>Photocopy/Print</option>
-                                    <option>Toko Kelontong</option>
+                                    @foreach($jenis as $j)
+                                    <option value="{{ $j->id }}">{{ $j->nama }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </li>

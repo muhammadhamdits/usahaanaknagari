@@ -15,8 +15,9 @@ class HomeController extends Controller
 
     public function index()
     {
+        $jenis = DB::table('jenis_usaha')->get();
         $judul = "Dashboard";
-        return view('dashboard', compact('judul'));
+        return view('dashboard', compact('judul', 'jenis'));
     }
 
     public function create(){
@@ -95,6 +96,21 @@ class HomeController extends Controller
 
     public function radiusJson($rad, $lat, $lng){
         $result = Usaha::whereRaw("ST_Distance(geom, ST_MakePoint($lng, $lat)) <= $rad")->get();
+        $output = [];
+        foreach($result as $d){
+            $latlng = explode(" ", substr(Usaha::select(DB::raw("ST_AsText(geom) AS latlng"))->where('id', $d->id)->first()->latlng, 6, -1));
+            $output[] = [
+                'id' => $d->id,
+                'title' => $d->nama,
+                'lat' => $latlng[1],
+                'lng' => $latlng[0]
+            ];
+        }
+        echo(json_encode($output));
+    }
+
+    public function typeJson($type){
+        $result = Usaha::where('jenis_usaha_id', $type)->get();
         $output = [];
         foreach($result as $d){
             $latlng = explode(" ", substr(Usaha::select(DB::raw("ST_AsText(geom) AS latlng"))->where('id', $d->id)->first()->latlng, 6, -1));

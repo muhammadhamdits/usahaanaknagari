@@ -53,6 +53,7 @@ Route::post('/usulanUsaha/{id}/update', 'UsahaController@perbarui')->name('usula
 Route::get('/json/usaha', 'HomeController@usahaJson')->name('usaha.json');
 Route::get('/json/nama/{data}', 'HomeController@namaJson')->name('nama.json');
 Route::get('/json/radius/{rad}/{lat}/{lng}', 'HomeController@radiusJson')->name('redius.json');
+Route::get('/json/type/{type}', 'HomeController@typeJson')->name('type.json');
 
 Route::post('/usulanUsaha/confirm', 'UsahaController@confirm')->name('usulanUsaha.confirm');
 Route::post('/usulanUpdate/confirm', 'UsahaController@konfirmasiUsulan')->name('usulanUsaha.konfirm');

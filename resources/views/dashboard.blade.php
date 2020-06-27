@@ -122,7 +122,7 @@
                 "<section class='col-3 connectedSortable' id='kanan'>"+
                     "<div class='card'>"+
                         "<div class='card-body' id='isiKanan' style='height: 465px'>";
-                        
+
                 $.getJSON("/json/radius/"+radius+"/"+lat+"/"+lng, function(res){
                     $.each(res, function(key, value){
                         kanan += 
@@ -145,6 +145,34 @@
             });
         });
 
+        $("#businessType").on('change', function(e){
+            let type = $(this).val();
+            $("#kiri").attr('class', 'col-9 connectedSortable');
+
+            var kanan =
+            "<section class='col-3 connectedSortable' id='kanan'>"+
+                "<div class='card'>"+
+                    "<div class='card-body' id='isiKanan' style='height: 465px'>";
+            $.getJSON("/json/type/"+type, function(data) {
+                $.each(data, function(key, data) {
+                    kanan += 
+                    "<li>"+
+                        "<a href='javascript:void(0);' onclick='mapAnimate("+data.lat+", "+data.lng+")'>"
+                            +data.title+
+                        "</a>"+
+                    "</li>";
+                });
+                    kanan +=
+                        "</div>"+
+                    "</div>"+
+                "</section>";
+
+                if($("#kanvas").children().eq(1)){
+                    $("#kanvas").children().eq(1).remove();
+                }
+                $("#kanvas").append(kanan);
+            });
+        });
     })
 
     function mapAnimate(lat, lng){
