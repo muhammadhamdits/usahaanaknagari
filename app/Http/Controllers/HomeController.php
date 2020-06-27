@@ -92,4 +92,19 @@ class HomeController extends Controller
         }
         echo(json_encode($output));
     }
+
+    public function radiusJson($rad, $lat, $lng){
+        $result = Usaha::whereRaw("ST_Distance(geom, ST_MakePoint($lng, $lat)) <= $rad")->get();
+        $output = [];
+        foreach($result as $d){
+            $latlng = explode(" ", substr(Usaha::select(DB::raw("ST_AsText(geom) AS latlng"))->where('id', $d->id)->first()->latlng, 6, -1));
+            $output[] = [
+                'id' => $d->id,
+                'title' => $d->nama,
+                'lat' => $latlng[1],
+                'lng' => $latlng[0]
+            ];
+        }
+        echo(json_encode($output));
+    }
 }

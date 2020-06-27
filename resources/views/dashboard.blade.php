@@ -81,34 +81,71 @@
 
 @section('js')
 <script>
-    $("#usaha").on('keyup', function(e){
-        let nama = $(this).val();
-        $("#kiri").attr('class', 'col-9 connectedSortable');
+    $(document).ready(function(){
+        $("#usaha").on('keyup', function(e){
+            let nama = $(this).val();
+            $("#kiri").attr('class', 'col-9 connectedSortable');
 
-        var kanan =
-        "<section class='col-3 connectedSortable' id='kanan'>"+
-            "<div class='card'>"+
-                "<div class='card-body' id='isiKanan' style='height: 465px'>";
-        $.getJSON("/json/nama/"+nama, function(data) {
-            $.each(data, function(key, data) {
-                kanan += 
-                "<li>"+
-                    "<a href='javascript:void(0);' onclick='mapAnimate("+data.lat+", "+data.lng+")'>"
-                        +data.title+
-                    "</a>"+
-                "</li>";
-            });
-                kanan +=
+            var kanan =
+            "<section class='col-3 connectedSortable' id='kanan'>"+
+                "<div class='card'>"+
+                    "<div class='card-body' id='isiKanan' style='height: 465px'>";
+            $.getJSON("/json/nama/"+nama, function(data) {
+                $.each(data, function(key, data) {
+                    kanan += 
+                    "<li>"+
+                        "<a href='javascript:void(0);' onclick='mapAnimate("+data.lat+", "+data.lng+")'>"
+                            +data.title+
+                        "</a>"+
+                    "</li>";
+                });
+                    kanan +=
+                        "</div>"+
                     "</div>"+
-                "</div>"+
-            "</section>";
+                "</section>";
 
-            if($("#kanvas").children().eq(1)){
-                $("#kanvas").children().eq(1).remove();
-            }
-            $("#kanvas").append(kanan);
+                if($("#kanvas").children().eq(1)){
+                    $("#kanvas").children().eq(1).remove();
+                }
+                $("#kanvas").append(kanan);
+            });
         });
-    });
+
+        $("#regionRange").on('change', function(e){
+            var radius = $(this).val();
+            navigator.geolocation.getCurrentPosition(function(position){
+                let lat = position.coords.latitude;
+                let lng = position.coords.longitude;
+                $("#kiri").attr('class', 'col-9 connectedSortable');
+
+                var kanan =
+                "<section class='col-3 connectedSortable' id='kanan'>"+
+                    "<div class='card'>"+
+                        "<div class='card-body' id='isiKanan' style='height: 465px'>";
+                        
+                $.getJSON("/json/radius/"+radius+"/"+lat+"/"+lng, function(res){
+                    $.each(res, function(key, value){
+                        kanan += 
+                        "<li>"+
+                            "<a href='javascript:void(0);' onclick='mapAnimate("+value.lat+", "+value.lng+")'>"
+                                +value.title+
+                            "</a>"+
+                        "</li>";
+                    });
+                        kanan +=
+                            "</div>"+
+                        "</div>"+
+                    "</section>";
+
+                    if($("#kanvas").children().eq(1)){
+                        $("#kanvas").children().eq(1).remove();
+                    }
+                    $("#kanvas").append(kanan);
+                });
+            });
+        });
+
+    })
 
     function mapAnimate(lat, lng){
         let pos = {
