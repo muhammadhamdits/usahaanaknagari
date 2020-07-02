@@ -156,7 +156,7 @@
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Usaha
-                                    <span class="right badge badge-info">78</span>
+                                    <span class="right badge badge-info">{{ DB::table('usaha')->where('status', 1)->count() }}</span>
                                 </p>
                             </a>
                         </li>
@@ -169,7 +169,7 @@
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Pemilik
-                                    <span class="badge badge-info right">15</span>
+                                    <span class="badge badge-info right">{{ DB::table('users')->where('status', 1)->count() }}</span>
                                 </p>
                             </a>
                         </li>
@@ -180,7 +180,7 @@
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
                                     Jenis Usaha
-                                    <span class="badge badge-info right">8</span>
+                                    <span class="badge badge-info right">{{ DB::table('jenis_usaha')->count() }}</span>
                                 </p>
                             </a>
                         </li>

@@ -234,8 +234,8 @@ div.dt-buttons {
 
     function konfirm(e){
         let buttons = $('<div>')
-        .append(createButton('btn btn-primary ml-2 confirmYes', '<i class="fas fa-check"></i> Accept', 'data-id="'+ $(e).data('id') +'"'))
-        .append(createButton('btn btn-danger ml-2 confirmNo', '<i class="fas fa-times"></i> Reject', 'data-id="'+ $(e).data('id') +'"'))
+        .append(createButton('btn btn-primary ml-2 confirmYes', '<i class="fas fa-check"></i> Accept', 'data-id="'+ $(e).data('id') +'"' + ' data-jenis="'+ $(e).data('jenis') +'"'))
+        .append(createButton('btn btn-danger ml-2 confirmNo', '<i class="fas fa-times"></i> Reject', 'data-id="'+ $(e).data('id') +'"' + ' data-jenis="'+ $(e).data('jenis') +'"'))
         .append(createButton('btn btn-secondary ml-2 confirmCancel', 'Cancel'));
 
         Swal.fire({
@@ -258,7 +258,6 @@ div.dt-buttons {
             $("#statusU-"+id).val(1);
             $("#statusU-"+id).parent().submit();
         }else{
-            console.log('ini');
             $("#status-"+id).val(1);
             $("#status-"+id).parent().submit();
         }

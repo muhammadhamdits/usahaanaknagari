@@ -79,10 +79,10 @@
 @endsection
 
 @section('content')
-@if(!Auth::guard('web')->check() || !Auth::guard('admin')->check())
-<form action="{{ route('usulanUsaha.perbarui', $usaha->id) }}" method="post" enctype="multipart/form-data">
-@else
+@if(Auth::guard('web')->check() || Auth::guard('admin')->check())
 <form action="{{ route('usaha.update', $usaha->id) }}" method="post" enctype="multipart/form-data">
+@else
+<form action="{{ route('usulanUsaha.perbarui', $usaha->id) }}" method="post" enctype="multipart/form-data">
 @endif
     <div class="row">
         @csrf
@@ -92,7 +92,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    @if(!Auth::guard('web')->check() || !Auth::guard('admin')->check())
+                    @if(!Auth::guard('web')->check() && !Auth::guard('admin')->check())
                     {!! formInputRow('Pengusul*', 'text', 'pengusul', 'nama pengusul', 'required', '', $errors->first('pengusul'), 12) !!}
                     @endif
 
