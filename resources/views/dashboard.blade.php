@@ -40,30 +40,6 @@
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
     }
-
-    $.getJSON("{{ route('usaha.json') }}", function(json1) {
-        var i = 0;
-        $.each(json1, function(key, data) {
-            let latLng = new google.maps.LatLng(data.lat, data.lng);
-            // Creating a marker and putting it on the map
-            let marker = new google.maps.Marker({
-                position: latLng,
-                map: map,
-                title: data.title
-            });
-            
-            google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                return function() {
-                    let contentString=
-                    "<a href='/usaha/"+data.id+"' target='_blank'>"+data.title+"</a>";
-                    infoWindow.setContent(contentString);
-                    infoWindow.open(map, marker);
-                }
-            })(marker, i));
-
-            i++;
-        });
-    });
 </script>
 @endsection
 
@@ -82,6 +58,30 @@
 @section('js')
 <script>
     $(document).ready(function(){
+        $.getJSON("{{ route('usaha.json') }}", function(json1) {
+            var i = 0;
+            $.each(json1, function(key, data) {
+                let latLng = new google.maps.LatLng(data.lat, data.lng);
+                // Creating a marker and putting it on the map
+                let marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                    title: data.title
+                });
+                
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                        let contentString=
+                        "<a href='/usaha/"+data.id+"' target='_blank'>"+data.title+"</a>";
+                        infoWindow.setContent(contentString);
+                        infoWindow.open(map, marker);
+                    }
+                })(marker, i));
+
+                i++;
+            });
+        });
+
         $("#usaha").on('keyup', function(e){
             let nama = $(this).val();
             $("#kiri").attr('class', 'col-9 connectedSortable');

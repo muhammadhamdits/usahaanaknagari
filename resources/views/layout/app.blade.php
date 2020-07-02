@@ -190,7 +190,7 @@
                         <!-- Search by Name -->
                         <li class="nav-header" style="margin-bottom: -20px">
                             <div class="form-group">
-                                <label for="usaha">Search by Name</label><br>
+                                <label for="usaha">Cari Berdasarkan Nama</label><br>
                                 <input type="text" class="form-control-sm" style="width: 100%; height: 35px; border-radius:5px;" placeholder="Masukkan Nama Usaha ..." id="usaha">
                             </div>
                         </li>
@@ -199,7 +199,7 @@
                         <!-- Search by Radius -->
                         <li class="nav-header" style="margin-bottom: -20px">
                             <div class="form-group">
-                                <label for="">Search by Radius</label><br>
+                                <label for="">Cari Berdasarkan Jarak</label><br>
                                 <p>Radius: <span id="value"></span> m</p>
                                 <input type="range" min="1" max="10000" value="0" id="regionRange" style="width: 100%;">
                                 <div>
@@ -211,7 +211,7 @@
                         </li>
 
                         <!-- Search by Region -->
-                        <li class="nav-header" style="margin-bottom: -20px;">
+                        <!-- <li class="nav-header" style="margin-bottom: -20px;">
                             <div class="form-group">
                                 <label for="">Search by Region</label><br>
                                 <select class="select2" style="width: 100%;">
@@ -221,12 +221,12 @@
                                     <option>Kab. 50 Kota</option>
                                 </select>
                             </div>
-                        </li>
+                        </li> -->
 
                         <!-- Search by Business Type -->
                         <li class="nav-header">
                             <div class="form-group">
-                                <label for="">Search by Business Type</label><br>
+                                <label for="">Cari Berdasarkan Jenis</label><br>
                                 <select class="select2" style="width: 100%;" id="businessType">
                                     <option selected="selected" disabled>Choose Business Type</option>
                                     @foreach($jenis as $j)
