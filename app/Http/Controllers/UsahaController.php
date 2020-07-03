@@ -33,7 +33,9 @@ class UsahaController extends Controller
 
     public function create()
     {
-        $jenisUsahas = DB::table('jenis_usaha')->get()->keyBy('id')->pluck('nama');
+        foreach(DB::table('jenis_usaha')->get() as $result){
+            $jenisUsahas[$result->id] = $result->nama;
+        }
         $judul = "Tambah Data Usaha";
         return view('admin.usaha.create', compact('jenisUsahas', 'judul'));
     }
