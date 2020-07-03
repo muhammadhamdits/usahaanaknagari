@@ -28,6 +28,7 @@ class CreateUsahaTable extends Migration
             $table->integer('status')->default(1);
             $table->string('pengusul')->nullable();
             $table->string('pemilik')->nullable();
+            $table->string('hp')->nullable();
             $table->timestamps();
 
             $table->foreign('jenis_usaha_id')->references('id')->on('jenis_usaha');
