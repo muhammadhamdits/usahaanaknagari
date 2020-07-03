@@ -48,9 +48,21 @@ function formSelect($label, $name, $options, $selected=null){
         <div class='col-12 form-group'>
             <label for='$name'>$label:</label>
             <select name='$name' id='$name' class='form-control select2'>";
-                foreach($options as $value => $option){
-                    $element .= "
-                    <option value='".($value+1)."'>$option</option>";
+                if($selected){
+                    foreach($options as $value => $option){
+                        if($selected == $value+1){
+                            $element .= "
+                            <option value='".($value+1)."' selected>$option</option>";
+                        }else{
+                            $element .= "
+                            <option value='".($value+1)."'>$option</option>";
+                        }
+                    }
+                }else{
+                    foreach($options as $value => $option){
+                        $element .= "
+                        <option value='".($value+1)."'>$option</option>";
+                    }
                 }
                 $element .= "
             </select>
