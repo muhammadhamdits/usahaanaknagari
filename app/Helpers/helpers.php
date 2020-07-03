@@ -50,18 +50,18 @@ function formSelect($label, $name, $options, $selected=null){
             <select name='$name' id='$name' class='form-control select2'>";
                 if($selected){
                     foreach($options as $value => $option){
-                        if($selected == $value+1){
+                        if($selected == $value){
                             $element .= "
-                            <option value='".($value+1)."' selected>$option</option>";
+                            <option value='".($value)."' selected>$option</option>";
                         }else{
                             $element .= "
-                            <option value='".($value+1)."'>$option</option>";
+                            <option value='".($value)."'>$option</option>";
                         }
                     }
                 }else{
                     foreach($options as $value => $option){
                         $element .= "
-                        <option value='".($value+1)."'>$option</option>";
+                        <option value='".($value)."'>$option</option>";
                     }
                 }
                 $element .= "
