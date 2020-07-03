@@ -25,6 +25,7 @@ class UsahaController extends Controller
             $id = Auth::user()->id;
             $usahas = Usaha::where('user_id', $id);
         }
+        // dd(DB::table('jenis_usaha')->get());
         $updates = UsulanUpdate::all();
         $judul = "Kelola Data Usaha";
         return view('admin.usaha.index', compact('usahas', 'judul', 'updates'));
@@ -87,7 +88,9 @@ class UsahaController extends Controller
         $usaha = Usaha::findOrFail($id);
         $judul = "Edit Data Usaha";
         $latlng = explode(" ", substr(Usaha::select(DB::raw("ST_AsText(geom) AS latlng"))->where('id', $id)->first()->latlng, 6, -1));
-        $jenisUsahas = DB::table('jenis_usaha')->get()->keyBy('id')->pluck('nama');
+        foreach(DB::table('jenis_usaha')->get() as $result){
+            $jenisUsahas[$result->id] = $result->nama;
+        }
         return view('admin.usaha.edit', compact('usaha', 'latlng', 'jenisUsahas', 'judul'));
     }
 
