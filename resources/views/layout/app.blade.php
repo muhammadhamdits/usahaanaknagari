@@ -228,7 +228,7 @@
                             <div class="form-group">
                                 <label for="">Cari Berdasarkan Jenis</label><br>
                                 <select class="select2" style="width: 100%;" id="businessType">
-                                    <option selected="selected" disabled>Choose Business Type</option>
+                                    <option selected="selected" disabled>Pilih Jenis Usaha</option>
                                     @foreach($jenis as $j)
                                     <option value="{{ $j->id }}">{{ $j->nama }}</option>
                                     @endforeach

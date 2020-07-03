@@ -182,5 +182,11 @@
         };
         map.setCenter(pos);
     }
+
+    window.onload = function() {
+        if(!window.location.hash) {
+            window.location.reload();
+        }
+    }
 </script>
 @endsection
