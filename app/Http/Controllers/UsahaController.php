@@ -133,8 +133,8 @@ class UsahaController extends Controller
     public function destroy($id)
     {
         $usaha = Usaha::findOrFail($id);
+        $usaha->update(['status' => 3]);
         toastr()->success("Usaha $usaha->nama berhasil dihapus");
-        $usaha->delete();
         return redirect(route('usaha.index'));
     }
 
