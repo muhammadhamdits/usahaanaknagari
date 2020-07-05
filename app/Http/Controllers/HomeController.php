@@ -21,7 +21,9 @@ class HomeController extends Controller
     }
 
     public function create(){
-        $jenisUsahas = DB::table('jenis_usaha')->get()->keyBy('id')->pluck('nama');
+        foreach(DB::table('jenis_usaha')->get() as $result){
+            $jenisUsahas[$result->id] = $result->nama;
+        }
         $judul = "Usulkan Data Usaha";
         return view('guest.usulanusaha', compact('jenisUsahas', 'judul'));
     }

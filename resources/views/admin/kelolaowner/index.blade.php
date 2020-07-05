@@ -73,6 +73,7 @@ div.dt-buttons {
                         <tr>
                             <th>No</th>
                             <th>Username</th>
+                            <th class="text-center">Tanda Pengenal</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -86,6 +87,11 @@ div.dt-buttons {
                                 </td>
                                 <td>
                                     {{ $user->username }}
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-sm btn-primary lihatFoto" data-toggle="modal" data-target="#modalPengenal" data-pengenal="{{ $user->tanda_pengenal }}">
+                                        <i class="fas fa-file"></i> Lihat
+                                    </button>
                                 </td>
                                 <td class="text-center">
                                     <form action="{{ route('usulanPemilik.confirm') }}" method="post">
@@ -106,6 +112,12 @@ div.dt-buttons {
         </div>
     </div>
     <!-- /.card -->
+    <!-- Modal -->
+    <div class="modal fade" id="modalPengenal" tabindex="-1" role="dialog" aria-labelledby="modalPengenalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <img src="" alt="" id="fotoPengenal" width="100%" class="mt-4">
+        </div>
+    </div>
 </div>
 
 @endsection
@@ -216,6 +228,11 @@ div.dt-buttons {
 
     $(document).on('click', '.confirmCancel', function(){
         swal.close();
-    })
+    });
+
+    $(document).on('click', '.lihatFoto', function(){
+        let src = $(this).data('pengenal');
+        $("#fotoPengenal").attr('src', src);
+    });
 </script>
 @endsection
