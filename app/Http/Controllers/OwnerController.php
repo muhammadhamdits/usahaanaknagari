@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Mail;
 
 class OwnerController extends Controller
 {
@@ -80,6 +81,24 @@ class OwnerController extends Controller
     public function confirm(Request $request){
         $user =  User::findOrFail($request->id);
         $user->update(['status' => $request->status]);
+
+        $to_name = $user->nama;
+        $to_email = $user->email;
+        if($request->status == 1){
+            $data = array(
+                "name" => $to_name,
+                "body" => "Selamat, akun anda telah aktif. Sekarang anda dapat login ke dalam aplikasi."
+            );
+        }else{
+            $data = array(
+                "name" => $to_name,
+                "body" => "Maaf, akun anda tidak dapat diaktivasi. Mohon periksa kembali kelengkapan data anda."
+            );
+        }
+        Mail::send("admin.mail", $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)->subject("Registrasi Akun : Usaha Anak Nagari");
+            $message->from("usahaanaknagari@gmail.com", "Usaha Anak Nagari");
+        });
 
         toastr()->success("Berhasil mengkonfirmasi usulan pemilik dengan nama $user->nama");
         return redirect(route('pemilik.index'));
