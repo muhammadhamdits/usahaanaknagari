@@ -82,7 +82,7 @@ class HomeController extends Controller
 
     public function namaJson($data){
         $s = '%'.strtolower($data).'%';
-        $result = Usaha::whereRaw('lower(nama) like (?)', ["{$s}"])->get();
+        $result = Usaha::whereRaw('lower(nama) like (?)', ["{$s}"])->where('status', 1)->get();
         $output = [];
         foreach($result as $d){
             $latlng = explode(" ", substr(Usaha::select(DB::raw("ST_AsText(geom) AS latlng"))->where('id', $d->id)->first()->latlng, 6, -1));
@@ -97,7 +97,7 @@ class HomeController extends Controller
     }
 
     public function radiusJson($rad, $lat, $lng){
-        $result = Usaha::whereRaw("ST_Distance(geom, ST_MakePoint($lng, $lat)) <= $rad")->get();
+        $result = Usaha::whereRaw("ST_Distance(geom, ST_MakePoint($lng, $lat)) <= $rad")->where('status', 1)->get();
         $output = [];
         foreach($result as $d){
             $latlng = explode(" ", substr(Usaha::select(DB::raw("ST_AsText(geom) AS latlng"))->where('id', $d->id)->first()->latlng, 6, -1));
@@ -112,7 +112,7 @@ class HomeController extends Controller
     }
 
     public function typeJson($type){
-        $result = Usaha::where('jenis_usaha_id', $type)->get();
+        $result = Usaha::where('jenis_usaha_id', $type)->where('status', 1)->get();
         $output = [];
         foreach($result as $d){
             $latlng = explode(" ", substr(Usaha::select(DB::raw("ST_AsText(geom) AS latlng"))->where('id', $d->id)->first()->latlng, 6, -1));

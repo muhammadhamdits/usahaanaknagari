@@ -156,7 +156,13 @@
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Usaha
-                                    <span class="right badge badge-info">{{ DB::table('usaha')->where('status', 1)->count() }}</span>
+                                    <span class="right badge badge-info">
+                                        @if(Auth::guard('admin')->check())
+                                        {{ DB::table('usaha')->where('status', 1)->count() }}
+                                        @else
+                                        {{ DB::table('usaha')->where('status', 1)->where('user_id', Auth::user()->id)->count() }}
+                                        @endif
+                                    </span>
                                 </p>
                             </a>
                         </li>
