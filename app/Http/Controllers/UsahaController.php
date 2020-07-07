@@ -157,7 +157,9 @@ class UsahaController extends Controller
         $usaha = Usaha::findOrFail($id);
         $judul = "Usulan Update Data Usaha";
         $latlng = explode(" ", substr(Usaha::select(DB::raw("ST_AsText(geom) AS latlng"))->where('id', $id)->first()->latlng, 6, -1));
-        $jenisUsahas = DB::table('jenis_usaha')->get()->keyBy('id')->pluck('nama');
+        foreach(DB::table('jenis_usaha')->get() as $result){
+            $jenisUsahas[$result->id] = $result->nama;
+        }
         return view('admin.usaha.edit', compact('usaha', 'latlng', 'jenisUsahas', 'judul'));
     }
 
@@ -241,8 +243,8 @@ class UsahaController extends Controller
 
     public function konfirmasiUsulan(Request $request){
         $usulan = UsulanUpdate::findOrFail($request->id);
+        $usaha = Usaha::findOrFail($usulan->usaha_id);
         if($request->status == 1){
-            $usaha = Usaha::findOrFail($usulan->usaha_id);
             $usaha->update([
                 'jenis_usaha_id' => $usulan->jenis_usaha_id,
                 'nama' => $usulan->nama,
@@ -254,9 +256,11 @@ class UsahaController extends Controller
                 'barang_jasa' => $usulan->barang_jasa,
                 'ket' => $usulan->ket,
             ]);
+            toastr()->success("Usulan update usaha $usaha->nama telah disetujui");
+        }else{
+            toastr()->error("Usulan update usaha $usaha->nama telah ditolak");
         }
         $usulan->update(['status' => $request->status]);
-        toastr()->success("Berhasil mengkonfirmasi usulan update usaha $usaha->nama");
         return redirect(route('usaha.index'));
     }
 }
