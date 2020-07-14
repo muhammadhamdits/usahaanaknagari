@@ -23,7 +23,7 @@ class UsahaController extends Controller
             $usahas = Usaha::all();
         }else{
             $id = Auth::user()->id;
-            $usahas = Usaha::where('user_id', $id);
+            $usahas = Usaha::where('user_id', $id)->get();
         }
         // dd(DB::table('jenis_usaha')->get());
         $updates = UsulanUpdate::all();
@@ -72,6 +72,10 @@ class UsahaController extends Controller
             'status' => 1,
             'pemilik' => $request->pemilik,
         ]);
+
+        if(!Auth::guard('admin')->check()){
+            $usaha->update(['user_id' => Auth::user()->id]);
+        }
 
         toastr()->success("Berhasil menambahkan data usaha $usaha->nama");
         return redirect(route('usaha.index'));
