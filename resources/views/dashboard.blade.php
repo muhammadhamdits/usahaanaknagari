@@ -121,7 +121,7 @@
                 var kanan =
                 "<section class='col-3 connectedSortable' id='kanan'>"+
                     "<div class='card'>"+
-                        "<div class='card-body' id='isiKanan' style='height: 465px'>";
+                        "<div class='card-body' id='isiKanan' style='height: 465px; overflow-y: scroll'>";
 
                 $.getJSON("/json/radius/"+radius+"/"+lat+"/"+lng, function(res){
                     $.each(res, function(key, value){
@@ -152,7 +152,7 @@
             var kanan =
             "<section class='col-3 connectedSortable' id='kanan'>"+
                 "<div class='card'>"+
-                    "<div class='card-body' id='isiKanan' style='height: 465px'>";
+                    "<div class='card-body' id='isiKanan' style='height: 465px; overflow-y: scroll'>";
             $.getJSON("/json/type/"+type, function(data) {
                 $.each(data, function(key, data) {
                     kanan += 
