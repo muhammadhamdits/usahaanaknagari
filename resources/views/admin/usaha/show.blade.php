@@ -113,7 +113,9 @@
                         <div class="col-12">
                             <label for="foto">Dokumentasi:</label>
                             <div class="text-center">
-                                <img src="{{ url($usaha->foto) }}" alt="" height="120">
+                                <button data-toggle="modal" data-target="#modalFoto">
+                                    <img src="{{ url($usaha->foto) }}" alt="" height="120">
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -143,6 +145,12 @@
         </div>
     </div>
 </form>
+<!-- Modal -->
+<div class="modal fade" id="modalFoto" tabindex="-1" role="dialog" aria-labelledby="modalFotoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <img src="{{ url($usaha->foto) }}" alt="" id="foto" width="100%" class="mt-4">
+        </div>
+    </div>
 @endsection
 
 @section('js')
